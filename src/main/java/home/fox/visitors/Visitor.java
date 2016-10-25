@@ -35,7 +35,6 @@ public abstract class Visitor {
 	 * {@link ResourceBundleVisitor}).
 	 *
 	 * @return the new visior
-	 * @see #setParser(Class, Parser)
 	 */
 	public static final Visitor getNewVisitor() {
 		return new ResourceBundleVisitor();
@@ -78,8 +77,7 @@ public abstract class Visitor {
 	protected abstract boolean createSource(Visitable v);
 
 	/**
-	 * This method will be invoked before visiting by
-	 * {@link #visitStatic(Class)}.
+	 * This method will be invoked before visiting by {@link #visit(Class)}.
 	 *
 	 * @param v
 	 *            the visitable
