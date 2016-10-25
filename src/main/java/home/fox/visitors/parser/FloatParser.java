@@ -16,9 +16,6 @@ public final class FloatParser implements Parser {
 		if (!Parser.super.parse(obj, field, definition)) {
 			return false;
 		}
-		if (!definition.matches("(-|\\+)?[0-9]+\\.[0-9]+(f|F)")) {
-			return false;
-		}
 		field.set(obj, Float.parseFloat(definition));
 		return true;
 	}

@@ -16,9 +16,6 @@ public final class IntParser implements Parser {
 		if (!Parser.super.parse(obj, field, definition)) {
 			return false;
 		}
-		if (!definition.matches("(-|\\+)?[0-9]+")) {
-			return false;
-		}
 		field.set(obj, Integer.parseInt(definition));
 		return true;
 	}

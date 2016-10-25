@@ -12,6 +12,10 @@ import home.fox.visitors.annotations.ClassParser;
 import home.fox.visitors.annotations.NoVisit;
 import home.fox.visitors.annotations.SetParser;
 import home.fox.visitors.annotations.VisitInfo;
+import home.fox.visitors.parser.BoolParser;
+import home.fox.visitors.parser.ByteParser;
+import home.fox.visitors.parser.CharParser;
+import home.fox.visitors.parser.DoubleParser;
 import home.fox.visitors.parser.FloatParser;
 import home.fox.visitors.parser.IntParser;
 import home.fox.visitors.parser.LongParser;
@@ -54,15 +58,29 @@ public abstract class Visitor {
 		 * SUID
 		 */
 		private static final long serialVersionUID = -1233333524870450644L;
-
 		{
-			this.put(Integer.class, new IntParser());
-			this.put(Integer.TYPE, new IntParser());
-			this.put(Float.class, new FloatParser());
-			this.put(Float.TYPE, new FloatParser());
-			this.put(Long.class, new LongParser());
-			this.put(Long.TYPE, new LongParser());
-			this.put(String.class, new StringParser());
+			this.putMore(new BoolParser(), Boolean.class, Boolean.TYPE);
+			this.putMore(new ByteParser(), Byte.class, Byte.TYPE);
+			this.putMore(new CharParser(), Character.class, Character.TYPE);
+			this.putMore(new DoubleParser(), Double.class, Double.TYPE);
+			this.putMore(new FloatParser(), Float.class, Float.TYPE);
+			this.putMore(new IntParser(), Integer.class, Integer.TYPE);
+			this.putMore(new LongParser(), Long.class, Long.TYPE);
+			this.putMore(new StringParser(), String.class);
+		}
+
+		/**
+		 * Set parser for more than one type.
+		 *
+		 * @param parser
+		 *            the parser
+		 * @param clazzes
+		 *            the classes
+		 */
+		private void putMore(Parser parser, Class<?>... clazzes) {
+			for (Class<?> c : clazzes) {
+				this.put(c, parser);
+			}
 		}
 	};
 
