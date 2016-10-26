@@ -28,7 +28,8 @@ public interface Parser {
 	 *            the String definition
 	 * @return {@code true} if successful, {@code false} otherwise
 	 * @throws Exception
-	 *             will thrown by Reflect stuff
+	 *             will thrown by any error while parsing if no {@code false}
+	 *             can be returned
 	 *
 	 */
 	default boolean parse(Visitable obj, Field field, String definition) throws Exception {
