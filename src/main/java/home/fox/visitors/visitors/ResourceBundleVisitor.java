@@ -21,14 +21,7 @@ public final class ResourceBundleVisitor extends Visitor {
 
 	@Override
 	protected boolean createSource(Visitable v) {
-		VisitInfo info = v.getClass().getAnnotation(VisitInfo.class);
-		if (info == null || !info.visit()) {
-			System.out.println("INFO: No info defined or disabled for Object of Class " + v.getClass().getSimpleName());
-			return false;
-		}
-		this.bundle = ResourceBundle.getBundle(info.res());
-		return true;
-
+		return this.createSource(v.getClass());
 	}
 
 	@Override

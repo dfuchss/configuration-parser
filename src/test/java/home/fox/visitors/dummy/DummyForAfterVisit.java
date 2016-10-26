@@ -2,6 +2,7 @@ package home.fox.visitors.dummy;
 
 import home.fox.visitors.Visitable;
 import home.fox.visitors.annotations.AfterVisit;
+import home.fox.visitors.annotations.NoVisit;
 import home.fox.visitors.annotations.VisitInfo;
 
 /**
@@ -15,10 +16,12 @@ public class DummyForAfterVisit implements Visitable {
 	/**
 	 * Indicates whether {@link #afterStatic()} was invoked.
 	 */
+	@NoVisit
 	public static boolean afterStaticVisited = false;
 	/**
 	 * Indicates whether {@link #afterObject()} was invoked.
 	 */
+	@NoVisit
 	public boolean afterObjectVisited = false;
 
 	/**

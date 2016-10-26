@@ -120,10 +120,11 @@ public abstract class Visitor {
 	 *            the visitable
 	 */
 	public final synchronized void visit(Visitable v) {
-		System.out.println("INFO: Visit object of class " + v.getClass().getSimpleName());
 		if (!this.createSource(v)) {
+			System.err.println("Cannot create source for " + v.getClass());
 			return;
 		}
+		System.out.println("INFO: Visit object of class " + v.getClass().getSimpleName());
 		for (Field field : v.getClass().getDeclaredFields()) {
 			this.applyObject(v, field);
 		}
@@ -139,10 +140,11 @@ public abstract class Visitor {
 	 *            the visitable
 	 */
 	public final synchronized void visit(Class<? extends Visitable> v) {
-		System.out.println("INFO: Visit class " + v.getSimpleName());
 		if (!this.createSource(v)) {
+			System.err.println("Cannot create source for " + v);
 			return;
 		}
+		System.out.println("INFO: Visit class " + v.getSimpleName());
 		for (Field field : v.getDeclaredFields()) {
 			this.applyStatic(field);
 		}
@@ -204,7 +206,7 @@ public abstract class Visitor {
 			m.setAccessible(true);
 			m.invoke(null);
 		} catch (Exception e) {
-			System.err.println("Cannot apply to field: " + m.getName() + " because " + e.getMessage());
+			System.err.println("Cannot invoke method: " + m.getName() + " because " + e.getMessage());
 		}
 
 	}
@@ -229,7 +231,7 @@ public abstract class Visitor {
 			m.setAccessible(true);
 			m.invoke(v);
 		} catch (Exception e) {
-			System.err.println("Cannot apply to field: " + m.getName() + " because " + e.getMessage());
+			System.err.println("Cannot invoke method: " + m.getName() + " because " + e.getMessage());
 		}
 
 	}
@@ -241,28 +243,16 @@ public abstract class Visitor {
 	 *            the field
 	 */
 	private void applyStatic(Field field) {
-		try {
-			if (field.getAnnotation(NoVisit.class) != null) {
-				return;
-			}
-			String val = null;
-			int mod = field.getModifiers();
-			if (!Modifier.isStatic(mod) || Modifier.isFinal(mod) || (val = this.getValue(field.getName())) == null) {
-				System.out.println("WARNING: Field " + field.getName() + " is not static or final or has no definition");
-				return;
-			}
-			field.setAccessible(true);
-			Parser parser = this.getParser(field);
-			if (parser == null) {
-				return;
-			}
-			if (!parser.parse(null, field, val)) {
-				System.err.println("Syntax-Error: Parser rejected content for " + field.getName());
-			}
-
-		} catch (Exception e) {
-			System.err.println("Cannot apply to field: " + field.getName() + " because " + e.getMessage());
+		if (field.getAnnotation(NoVisit.class) != null) {
+			return;
 		}
+		String val = null;
+		int mod = field.getModifiers();
+		if (!Modifier.isStatic(mod) || Modifier.isFinal(mod) || (val = this.getValue(field.getName())) == null) {
+			System.out.println("Warning: Field " + field.getName() + " is non-static or is final or has no value");
+			return;
+		}
+		this.applyToField(null, field, val);
 	}
 
 	/**
@@ -275,25 +265,40 @@ public abstract class Visitor {
 	 *
 	 */
 	private void applyObject(Visitable v, Field field) {
+		if (field.getAnnotation(NoVisit.class) != null) {
+			return;
+		}
+		int mod = field.getModifiers();
+		String val = null;
+		if (Modifier.isStatic(mod) || Modifier.isFinal(mod) || (val = this.getValue(field.getName())) == null) {
+			System.out.println("Warning: Field " + field.getName() + " is static or is final or has no value");
+			return;
+		}
+		this.applyToField(v, field, val);
+	}
+
+	/**
+	 * Apply a value to a field.
+	 *
+	 * @param v
+	 *            the visitable object or {@code null} to visit class
+	 * @param field
+	 *            the field
+	 * @param val
+	 *            the value to be set / parsed to the field
+	 *
+	 */
+	private void applyToField(Visitable v, Field field, String val) {
 		try {
-			if (field.getAnnotation(NoVisit.class) != null) {
-				return;
-			}
-			String val = null;
-			int mod = field.getModifiers();
-			if (Modifier.isStatic(mod) || Modifier.isFinal(mod) || (val = this.getValue(field.getName())) == null) {
-				System.out.println("WARNING: Field " + field.getName() + " is static or final or has no definition");
-				return;
-			}
 			field.setAccessible(true);
 			Parser parser = this.getParser(field);
 			if (parser == null) {
+				System.err.println("No parser found for " + field.getName());
 				return;
 			}
 			if (!parser.parse(v, field, val)) {
-				System.err.println("Syntax-Error: Parser rejected content for " + field.getName());
+				System.err.println("Syntax-Error: Parser rejected content for " + field.getName() + " where content was " + val);
 			}
-
 		} catch (Exception e) {
 			System.err.println("Cannot apply to field: " + field.getName() + " because " + e.getMessage());
 		}
