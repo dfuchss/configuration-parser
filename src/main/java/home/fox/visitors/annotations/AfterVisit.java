@@ -12,7 +12,7 @@ import home.fox.visitors.Visitor;
  * This annotation has to be applied to Methods which shall be executed after a
  * visit of a {@link Visitor} to a {@link Visitable}.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  *
  */
 @Retention(RetentionPolicy.RUNTIME)

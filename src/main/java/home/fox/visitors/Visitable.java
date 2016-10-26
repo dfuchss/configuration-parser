@@ -10,7 +10,7 @@ import home.fox.visitors.visitors.ResourceBundleVisitor;
  * This interface has to be implemented by classes which shall be visited by a
  * {@link Visitor}.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  * @see VisitInfo
  * @see AfterVisit
  * @see NoVisit

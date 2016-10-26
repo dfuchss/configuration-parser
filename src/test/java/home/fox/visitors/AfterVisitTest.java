@@ -11,7 +11,7 @@ import home.fox.visitors.visitors.ResourceBundleVisitor;
 /**
  * This class tests {@link AfterVisit} functionality.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  *
  */
 public class AfterVisitTest {

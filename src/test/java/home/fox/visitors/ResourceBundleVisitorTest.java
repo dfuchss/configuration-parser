@@ -11,7 +11,7 @@ import home.fox.visitors.visitors.ResourceBundleVisitor;
 /**
  * This class shall test functionality of the {@link ResourceBundleVisitor}.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  *
  */
 public class ResourceBundleVisitorTest {

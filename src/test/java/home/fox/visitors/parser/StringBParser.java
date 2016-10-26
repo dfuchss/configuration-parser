@@ -3,20 +3,23 @@ package home.fox.visitors.parser;
 import java.lang.reflect.Field;
 
 import home.fox.visitors.Visitable;
+import home.fox.visitors.toParse.StringB;
 
 /**
- * This {@link Parser} is used for parsing {@link Byte Bytes}.
+ * An internal StringB parser.
  *
  * @author Dominik Fuchss
  *
  */
-public final class ByteParser implements Parser {
+public class StringBParser implements Parser {
 	@Override
 	public boolean parse(Visitable obj, Field field, String definition) throws Exception {
 		if (!Parser.super.parse(obj, field, definition)) {
 			return false;
 		}
-		field.set(obj, Byte.parseByte(definition));
+		StringB string = new StringB();
+		string.string = "" + definition;
+		field.set(obj, string);
 		return true;
 	}
 }

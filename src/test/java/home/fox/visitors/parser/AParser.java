@@ -5,18 +5,21 @@ import java.lang.reflect.Field;
 import home.fox.visitors.Visitable;
 
 /**
- * This {@link Parser} is used for parsing {@link Byte Bytes}.
+ * An internal array parser.
  *
  * @author Dominik Fuchss
  *
  */
-public final class ByteParser implements Parser {
+public class AParser implements Parser {
 	@Override
 	public boolean parse(Visitable obj, Field field, String definition) throws Exception {
 		if (!Parser.super.parse(obj, field, definition)) {
 			return false;
 		}
-		field.set(obj, Byte.parseByte(definition));
+		if (definition == null || !definition.contains(",")) {
+			return false;
+		}
+		field.set(obj, definition.split(","));
 		return true;
 	}
 }

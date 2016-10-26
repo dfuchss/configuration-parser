@@ -11,7 +11,7 @@ import home.fox.visitors.annotations.VisitInfo;
  * specific Class for a {@link Visitor}.<br>
  * <b>It must be possible to create a parser via a default constructor</b>
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  * @see VisitInfo
  *
  */
@@ -28,7 +28,8 @@ public interface Parser {
 	 *            the String definition
 	 * @return {@code true} if successful, {@code false} otherwise
 	 * @throws Exception
-	 *             will thrown by Reflect stuff
+	 *             will thrown by any error while parsing if no {@code false}
+	 *             can be returned
 	 *
 	 */
 	default boolean parse(Visitable obj, Field field, String definition) throws Exception {
