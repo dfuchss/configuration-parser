@@ -68,7 +68,7 @@ public class ClassWithParser implements Visitable {
       }
     }
 ```
-## Example 2: Additional Parsers II
+## Example 3: Additional Parsers II
 * src/main/java/ClassWithoutParser.java:
 ```java
 public class ClassWithoutParser implements Visitable {
