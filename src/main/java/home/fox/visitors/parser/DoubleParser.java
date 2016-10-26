@@ -7,7 +7,7 @@ import home.fox.visitors.Visitable;
 /**
  * This {@link Parser} is used for parsing {@link Double Doubles}.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  *
  */
 public final class DoubleParser implements Parser {

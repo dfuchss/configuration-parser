@@ -8,7 +8,7 @@ import home.fox.visitors.Visitor;
 /**
  * This class realizes a {@link Visitor} which will use a {@link Map}.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  *
  */
 public final class MapVisitor extends Visitor {

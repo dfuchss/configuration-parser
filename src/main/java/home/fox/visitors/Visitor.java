@@ -27,7 +27,7 @@ import home.fox.visitors.visitors.ResourceBundleVisitor;
  * This class supports the setting of Values and/or Attributes to Classes and
  * Objects which implements the {@link Visitable} interface.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  * @see VisitInfo
  * @see AfterVisit
  *

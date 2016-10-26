@@ -11,7 +11,7 @@ import home.fox.visitors.parser.Parser;
  * shall be visited by a specified {@link Parser}. This will override the
  * default parser.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
