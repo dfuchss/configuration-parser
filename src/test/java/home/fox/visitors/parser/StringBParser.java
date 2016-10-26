@@ -8,7 +8,7 @@ import home.fox.visitors.toParse.StringB;
 /**
  * An internal StringB parser.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  *
  */
 public class StringBParser implements Parser {

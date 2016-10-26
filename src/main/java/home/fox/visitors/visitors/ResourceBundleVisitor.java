@@ -10,7 +10,7 @@ import home.fox.visitors.annotations.VisitInfo;
  * This class realizes the default {@link Visitor} which will use a
  * {@link ResourceBundle} as configured by {@link VisitInfo}.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  *
  */
 public final class ResourceBundleVisitor extends Visitor {

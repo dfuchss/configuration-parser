@@ -6,7 +6,7 @@ import home.fox.visitors.parser.StringBParser;
 /**
  * This class contains a String.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  *
  */
 @ClassParser(StringBParser.class)

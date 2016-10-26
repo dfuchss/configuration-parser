@@ -10,7 +10,7 @@ import home.fox.visitors.visitors.ResourceBundleVisitor;
  * This annotation must be applied to a Class which shall be visited by a
  * {@link ResourceBundleVisitor}.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  *
  */
 @Retention(RetentionPolicy.RUNTIME)

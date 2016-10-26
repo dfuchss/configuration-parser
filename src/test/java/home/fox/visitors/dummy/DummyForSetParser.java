@@ -10,7 +10,7 @@ import home.fox.visitors.visitors.ResourceBundleVisitor;
  * This class will be used to test several functionality of the
  * {@link ResourceBundleVisitor} and {@link SetParser}.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  *
  */
 @VisitInfo(res = "conf/dummyForResourceBundle", visit = true)

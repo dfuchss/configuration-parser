@@ -7,7 +7,7 @@ import home.fox.visitors.Visitable;
 /**
  * An internal array parser.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  *
  */
 public class AParser implements Parser {

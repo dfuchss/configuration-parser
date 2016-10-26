@@ -13,7 +13,7 @@ import home.fox.visitors.visitors.MapVisitor;
  * This {@link Parser} is able to parse options from a config.<br>
  * Syntax: name1::optionValue1;name2::optionValue2
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  *
  */
 public final class TwoLevelParser implements Parser {

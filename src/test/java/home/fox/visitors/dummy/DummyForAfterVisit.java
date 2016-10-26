@@ -8,7 +8,7 @@ import home.fox.visitors.annotations.VisitInfo;
 /**
  * This class will be used to test {@link AfterVisit}.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  *
  */
 @VisitInfo(res = "conf/dummyForResourceBundle", visit = true)

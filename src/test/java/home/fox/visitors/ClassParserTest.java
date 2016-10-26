@@ -10,7 +10,7 @@ import home.fox.visitors.visitors.ResourceBundleVisitor;
 /**
  * This class tests {@link SetParser} functionality.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  *
  */
 public class ClassParserTest {
