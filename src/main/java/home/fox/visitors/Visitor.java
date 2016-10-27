@@ -6,6 +6,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import home.fox.visitors.annotations.AfterVisit;
 import home.fox.visitors.annotations.ClassParser;
@@ -33,6 +35,13 @@ import home.fox.visitors.visitors.ResourceBundleVisitor;
  *
  */
 public abstract class Visitor {
+	/**
+	 * The logger of the Visitor class.
+	 */
+	public static final Logger LOGGER = Logger.getLogger(Visitor.class.getName());
+	static {
+		Visitor.LOGGER.setLevel(Level.OFF);
+	}
 
 	/**
 	 * Get a new modifiable visitor (default visitor:
@@ -121,10 +130,10 @@ public abstract class Visitor {
 	 */
 	public final synchronized void visit(Visitable v) {
 		if (!this.createSource(v)) {
-			System.err.println("Cannot create source for " + v.getClass());
+			Visitor.LOGGER.severe("Cannot create source for " + v.getClass());
 			return;
 		}
-		System.out.println("INFO: Visit object of class " + v.getClass().getSimpleName());
+		Visitor.LOGGER.info("Visit object of class " + v.getClass().getSimpleName());
 		for (Field field : v.getClass().getDeclaredFields()) {
 			this.applyObject(v, field);
 		}
@@ -141,10 +150,10 @@ public abstract class Visitor {
 	 */
 	public final synchronized void visit(Class<? extends Visitable> v) {
 		if (!this.createSource(v)) {
-			System.err.println("Cannot create source for " + v);
+			Visitor.LOGGER.severe("Cannot create source for " + v);
 			return;
 		}
-		System.out.println("INFO: Visit class " + v.getSimpleName());
+		Visitor.LOGGER.info("Visit class " + v.getSimpleName());
 		for (Field field : v.getDeclaredFields()) {
 			this.applyStatic(field);
 		}
@@ -206,7 +215,7 @@ public abstract class Visitor {
 			m.setAccessible(true);
 			m.invoke(null);
 		} catch (Exception e) {
-			System.err.println("\tCannot invoke method: " + m.getName() + " because " + e.getMessage());
+			Visitor.LOGGER.severe("Cannot invoke method: " + m.getName() + " because " + e.getMessage());
 		}
 
 	}
@@ -231,7 +240,7 @@ public abstract class Visitor {
 			m.setAccessible(true);
 			m.invoke(v);
 		} catch (Exception e) {
-			System.err.println("\tCannot invoke method: " + m.getName() + " because " + e.getMessage());
+			Visitor.LOGGER.severe("Cannot invoke method: " + m.getName() + " because " + e.getMessage());
 		}
 
 	}
@@ -249,7 +258,7 @@ public abstract class Visitor {
 		String val = null;
 		int mod = field.getModifiers();
 		if (!Modifier.isStatic(mod) || Modifier.isFinal(mod) || (val = this.getValue(field.getName())) == null) {
-			System.out.println("\tWarning: Field " + field.getName() + " is non-static or is final or has no value");
+			Visitor.LOGGER.warning("Field " + field.getName() + " is non-static or is final or has no value");
 			return;
 		}
 		this.applyToField(null, field, val);
@@ -271,7 +280,7 @@ public abstract class Visitor {
 		int mod = field.getModifiers();
 		String val = null;
 		if (Modifier.isStatic(mod) || Modifier.isFinal(mod) || (val = this.getValue(field.getName())) == null) {
-			System.out.println("\tWarning: Field " + field.getName() + " is static or is final or has no value");
+			Visitor.LOGGER.warning("Field " + field.getName() + " is static or is final or has no value");
 			return;
 		}
 		this.applyToField(v, field, val);
@@ -293,14 +302,14 @@ public abstract class Visitor {
 			field.setAccessible(true);
 			Parser parser = this.getParser(field);
 			if (parser == null) {
-				System.err.println("\tNo parser found for " + field.getName());
+				Visitor.LOGGER.severe("No parser found for " + field.getName());
 				return;
 			}
 			if (!parser.parse(v, field, val)) {
-				System.err.println("\tSyntax-Error: Parser rejected content for " + field.getName() + " where content was " + val);
+				Visitor.LOGGER.severe("Syntax-Error: Parser rejected content for " + field.getName() + " where content was " + val);
 			}
 		} catch (Exception e) {
-			System.err.println("\tCannot apply to field: " + field.getName() + " because " + e.getMessage());
+			Visitor.LOGGER.severe("Cannot apply to field: " + field.getName() + " because " + e.getMessage());
 		}
 
 	}

@@ -21,6 +21,14 @@ public final class TwoLevelParser implements Parser {
 	 * The mapping from stage-2-key to value.
 	 */
 	private Map<String, String> mapping = new HashMap<>();
+	/**
+	 * The pattern for the sub-definitions. (e.g. name1::option1,optionA )
+	 */
+	private Pattern subPattern = Pattern.compile("(\\w|\\d|_)+::(\\w|\\d|\\+|-|\\.|,)+");
+	/**
+	 * The delimiter pattern :: .
+	 */
+	private Pattern delimiter = Pattern.compile("::");
 
 	@Override
 	public final boolean parse(Visitable obj, Field field, String definition) throws Exception {
@@ -31,18 +39,15 @@ public final class TwoLevelParser implements Parser {
 		}
 
 		String[] parts = definition.split(";");
-		Pattern pat = Pattern.compile("(\\w|\\d|_)+::(\\w|\\d|\\+|-|\\.|,)+");
 		for (String def : parts) {
-			if (!pat.matcher(def).matches()) {
-				System.err.println(def + " does not match!");
-				return false;
+			if (!this.subPattern.matcher(def).matches()) {
+				throw new Exception(def + " was rejected because it is no SubPattern (\\w|\\d|_)+::(\\w|\\d|\\+|-|\\.|,)+!");
 			}
 		}
-		Pattern p = Pattern.compile("::");
 		for (String kv : parts) {
-			String[] split = p.split(kv);
+			String[] split = this.delimiter.split(kv);
 			if (this.mapping.put(split[0], split[1]) != null) {
-				System.err.println("WARING: Double definition for " + split[0]);
+				Visitor.LOGGER.warning("Double definition for " + split[0] + " in " + this.getClass().getSimpleName());
 			}
 		}
 		this.apply(obj, field);
@@ -59,14 +64,15 @@ public final class TwoLevelParser implements Parser {
 	 * @param field
 	 *            the current field
 	 * @throws Exception
-	 *             will thrown by Reflect stuff
+	 *             will thrown if field could not be parsed
 	 *
 	 */
 	private final void apply(Visitable obj, Field field) throws Exception {
 		Object instance = field.getType().getDeclaredConstructor().newInstance();
 		if (!(instance instanceof Visitable)) {
-			System.err.println("TwoLevelParser: Cannot parse " + field.getName() + " in " + obj.getClass().getSimpleName());
-			return;
+			throw new Exception("TwoLevelParser: " //
+					+ "Cannot parse " + field.getName() + " in " + obj.getClass().getSimpleName()
+					+ ": The field could not be instantiated as Visitable.");
 		}
 		Visitor v = new MapVisitor(this.mapping);
 		v.visit((Visitable) instance);

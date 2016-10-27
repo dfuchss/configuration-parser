@@ -28,7 +28,7 @@ public final class ResourceBundleVisitor extends Visitor {
 	protected boolean createSource(Class<? extends Visitable> v) {
 		VisitInfo info = v.getAnnotation(VisitInfo.class);
 		if (info == null || !info.visit()) {
-			System.out.println("INFO: No info defined or disabled for Class " + v.getSimpleName());
+			Visitor.LOGGER.info("No info defined or disabled for Class " + v.getSimpleName());
 			return false;
 		}
 		this.bundle = ResourceBundle.getBundle(info.res());
