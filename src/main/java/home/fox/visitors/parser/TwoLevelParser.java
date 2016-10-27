@@ -47,7 +47,7 @@ public final class TwoLevelParser implements Parser {
 		for (String kv : parts) {
 			String[] split = this.delimiter.split(kv);
 			if (this.mapping.put(split[0], split[1]) != null) {
-				Visitor.LOGGER.warning("Double definition for " + split[0] + " in " + this.getClass().getSimpleName());
+				Visitor.LOGGER.warn("Double definition for " + split[0] + " in " + this.getClass().getSimpleName());
 			}
 		}
 		this.apply(obj, field);

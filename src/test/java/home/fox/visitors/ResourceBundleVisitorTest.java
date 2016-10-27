@@ -1,7 +1,6 @@
 package home.fox.visitors;
 
-import java.util.logging.Level;
-
+import org.apache.log4j.Level;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;

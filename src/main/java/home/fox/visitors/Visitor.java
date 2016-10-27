@@ -6,8 +6,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import home.fox.visitors.annotations.AfterVisit;
 import home.fox.visitors.annotations.ClassParser;
@@ -38,9 +40,10 @@ public abstract class Visitor {
 	/**
 	 * The logger of the Visitor class.
 	 */
-	public static final Logger LOGGER = Logger.getLogger(Visitor.class.getName());
+	public static final Logger LOGGER = Logger.getLogger(Visitor.class);
 	static {
-		Visitor.LOGGER.setLevel(Level.OFF);
+		Visitor.LOGGER.setLevel(Level.ERROR);
+		BasicConfigurator.configure();
 	}
 
 	/**
@@ -130,7 +133,7 @@ public abstract class Visitor {
 	 */
 	public final synchronized void visit(Visitable v) {
 		if (!this.createSource(v)) {
-			Visitor.LOGGER.severe("Cannot create source for " + v.getClass());
+			Visitor.LOGGER.error("Cannot create source for " + v.getClass());
 			return;
 		}
 		Visitor.LOGGER.info("Visit object of class " + v.getClass().getSimpleName());
@@ -150,7 +153,7 @@ public abstract class Visitor {
 	 */
 	public final synchronized void visit(Class<? extends Visitable> v) {
 		if (!this.createSource(v)) {
-			Visitor.LOGGER.severe("Cannot create source for " + v);
+			Visitor.LOGGER.error("Cannot create source for " + v);
 			return;
 		}
 		Visitor.LOGGER.info("Visit class " + v.getSimpleName());
@@ -215,7 +218,7 @@ public abstract class Visitor {
 			m.setAccessible(true);
 			m.invoke(null);
 		} catch (Exception e) {
-			Visitor.LOGGER.severe("Cannot invoke method: " + m.getName() + " because " + e.getMessage());
+			Visitor.LOGGER.error("Cannot invoke method: " + m.getName() + " because " + e.getMessage());
 		}
 
 	}
@@ -240,7 +243,7 @@ public abstract class Visitor {
 			m.setAccessible(true);
 			m.invoke(v);
 		} catch (Exception e) {
-			Visitor.LOGGER.severe("Cannot invoke method: " + m.getName() + " because " + e.getMessage());
+			Visitor.LOGGER.error("Cannot invoke method: " + m.getName() + " because " + e.getMessage());
 		}
 
 	}
@@ -258,7 +261,7 @@ public abstract class Visitor {
 		String val = null;
 		int mod = field.getModifiers();
 		if (!Modifier.isStatic(mod) || Modifier.isFinal(mod) || (val = this.getValue(field.getName())) == null) {
-			Visitor.LOGGER.warning("Field " + field.getName() + " is non-static or is final or has no value");
+			Visitor.LOGGER.warn("Field " + field.getName() + " is non-static or is final or has no value");
 			return;
 		}
 		this.applyToField(null, field, val);
@@ -280,7 +283,7 @@ public abstract class Visitor {
 		int mod = field.getModifiers();
 		String val = null;
 		if (Modifier.isStatic(mod) || Modifier.isFinal(mod) || (val = this.getValue(field.getName())) == null) {
-			Visitor.LOGGER.warning("Field " + field.getName() + " is static or is final or has no value");
+			Visitor.LOGGER.warn("Field " + field.getName() + " is static or is final or has no value");
 			return;
 		}
 		this.applyToField(v, field, val);
@@ -302,14 +305,14 @@ public abstract class Visitor {
 			field.setAccessible(true);
 			Parser parser = this.getParser(field);
 			if (parser == null) {
-				Visitor.LOGGER.severe("No parser found for " + field.getName());
+				Visitor.LOGGER.error("No parser found for " + field.getName());
 				return;
 			}
 			if (!parser.parse(v, field, val)) {
-				Visitor.LOGGER.severe("Syntax-Error: Parser rejected content for " + field.getName() + " where content was " + val);
+				Visitor.LOGGER.error("Syntax-Error: Parser rejected content for " + field.getName() + " where content was " + val);
 			}
 		} catch (Exception e) {
-			Visitor.LOGGER.severe("Cannot apply to field: " + field.getName() + " because " + e.getMessage());
+			Visitor.LOGGER.error("Cannot apply to field: " + field.getName() + " because " + e.getMessage());
 		}
 
 	}
