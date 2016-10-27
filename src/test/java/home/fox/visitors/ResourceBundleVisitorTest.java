@@ -1,10 +1,11 @@
 package home.fox.visitors;
 
+import java.util.logging.Level;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import home.fox.visitors.Visitor;
 import home.fox.visitors.dummy.DummyForResourceBundle;
 import home.fox.visitors.visitors.ResourceBundleVisitor;
 
@@ -19,6 +20,14 @@ public class ResourceBundleVisitorTest {
 	 * An instance of {@link ResourceBundleVisitor}.
 	 */
 	private static final Visitor RESOURCE_BUNDLE_VISITOR = new ResourceBundleVisitor();
+
+	/**
+	 * Activate the logger of {@link Visitor}.
+	 */
+	@BeforeClass
+	public static void activateLogger() {
+		Visitor.LOGGER.setLevel(Level.ALL);
+	}
 
 	/**
 	 * Visit the {@link DummyForResourceBundle}.

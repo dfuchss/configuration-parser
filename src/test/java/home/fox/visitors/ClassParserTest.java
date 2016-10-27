@@ -1,6 +1,9 @@
 package home.fox.visitors;
 
+import java.util.logging.Level;
+
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import home.fox.visitors.annotations.SetParser;
@@ -18,6 +21,14 @@ public class ClassParserTest {
 	 * An instance of {@link ResourceBundleVisitor}.
 	 */
 	private static final Visitor RESOURCE_BUNDLE_VISITOR = new ResourceBundleVisitor();
+
+	/**
+	 * Activate the logger of {@link Visitor}.
+	 */
+	@BeforeClass
+	public static void activateLogger() {
+		Visitor.LOGGER.setLevel(Level.ALL);
+	}
 
 	/**
 	 * Test for class.
