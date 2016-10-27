@@ -17,7 +17,8 @@ public final class CharParser implements Parser {
 			return false;
 		}
 		if (definition.length() != 1) {
-			throw new Exception("Length != 1 => No Character");
+			Parser.LOGGER.error("Length != 1 => No Character");
+			return false;
 		}
 		field.set(obj, definition.charAt(0));
 		return true;

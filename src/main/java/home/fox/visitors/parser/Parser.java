@@ -2,6 +2,10 @@ package home.fox.visitors.parser;
 
 import java.lang.reflect.Field;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import home.fox.visitors.Visitable;
 import home.fox.visitors.Visitor;
 import home.fox.visitors.annotations.VisitInfo;
@@ -16,6 +20,24 @@ import home.fox.visitors.annotations.VisitInfo;
  *
  */
 public interface Parser {
+	/**
+	 * The logger of the Parser class.
+	 */
+	final Logger LOGGER = Parser.getLogger();
+
+	/**
+	 * Do not invoke. Will be used to set {@link #LOGGER}
+	 *
+	 * @return the logger instance
+	 */
+	static Logger getLogger() {
+		Logger logger = Logger.getLogger(Parser.class);
+		Parser.LOGGER.setLevel(Level.ERROR);
+		BasicConfigurator.configure();
+		return logger;
+
+	}
+
 	/**
 	 * Parse the definition to the specific class.
 	 *
@@ -34,6 +56,7 @@ public interface Parser {
 	 */
 	default boolean parse(Visitable obj, Field field, String definition) throws Exception {
 		if (field == null || definition == null) {
+			Parser.LOGGER.error("Content cannot be parsed: field (" + field + ") or definition (" + definition + ") is null.");
 			return false;
 		}
 		return true;
