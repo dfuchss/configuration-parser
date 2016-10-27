@@ -133,7 +133,7 @@ public abstract class Visitor {
 	 */
 	public final synchronized void visit(Visitable v) {
 		if (!this.createSource(v)) {
-			Visitor.LOGGER.error("Cannot create source for " + v.getClass());
+			Visitor.LOGGER.warn("Cannot create source for " + v.getClass());
 			return;
 		}
 		Visitor.LOGGER.info("Visit object of class " + v.getClass().getSimpleName());
@@ -153,7 +153,7 @@ public abstract class Visitor {
 	 */
 	public final synchronized void visit(Class<? extends Visitable> v) {
 		if (!this.createSource(v)) {
-			Visitor.LOGGER.error("Cannot create source for " + v);
+			Visitor.LOGGER.warn("Cannot create source for " + v);
 			return;
 		}
 		Visitor.LOGGER.info("Visit class " + v.getSimpleName());
