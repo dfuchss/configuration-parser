@@ -71,7 +71,7 @@ public final class TwoLevelParser implements Parser {
 		Object instance = field.getType().getDeclaredConstructor().newInstance();
 		if (!(instance instanceof Visitable)) {
 			throw new Exception("TwoLevelParser: " //
-					+ "Cannot parse " + field.getName() + " in " + obj.getClass().getSimpleName()
+					+ "Cannot parse " + field.getName() + " in " + (obj == null ? "unknown class" : obj.getClass().getSimpleName())
 					+ ": The field could not be instantiated as Visitable.");
 		}
 		Visitor v = new MapVisitor(this.mapping);
