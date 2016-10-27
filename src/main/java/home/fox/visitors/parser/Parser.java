@@ -32,7 +32,7 @@ public interface Parser {
 	 */
 	static Logger getLogger() {
 		Logger logger = Logger.getLogger(Parser.class);
-		Parser.LOGGER.setLevel(Level.ERROR);
+		logger.setLevel(Level.ERROR);
 		BasicConfigurator.configure();
 		return logger;
 
