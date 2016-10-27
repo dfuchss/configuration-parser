@@ -41,13 +41,14 @@ public final class TwoLevelParser implements Parser {
 		String[] parts = definition.split(";");
 		for (String def : parts) {
 			if (!this.subPattern.matcher(def).matches()) {
-				throw new Exception(def + " was rejected because it is no SubPattern (\\w|\\d|_)+::(\\w|\\d|\\+|-|\\.|,)+!");
+				Parser.LOGGER.error(def + " was rejected because it is no SubPattern (\\w|\\d|_)+::(\\w|\\d|\\+|-|\\.|,)+!");
+				return false;
 			}
 		}
 		for (String kv : parts) {
 			String[] split = this.delimiter.split(kv);
 			if (this.mapping.put(split[0], split[1]) != null) {
-				Visitor.LOGGER.warn("Double definition for " + split[0] + " in " + this.getClass().getSimpleName());
+				Parser.LOGGER.warn("Double definition for " + split[0] + " in " + this.getClass().getSimpleName());
 			}
 		}
 		this.apply(obj, field);
@@ -70,9 +71,10 @@ public final class TwoLevelParser implements Parser {
 	private final void apply(Visitable obj, Field field) throws Exception {
 		Object instance = field.getType().getDeclaredConstructor().newInstance();
 		if (!(instance instanceof Visitable)) {
-			throw new Exception("TwoLevelParser: " //
+			Parser.LOGGER.error("TwoLevelParser: " //
 					+ "Cannot parse " + field.getName() + " in " + (obj == null ? "unknown class" : obj.getClass().getSimpleName())
 					+ ": The field could not be instantiated as Visitable.");
+			return;
 		}
 		Visitor v = new MapVisitor(this.mapping);
 		v.visit((Visitable) instance);
