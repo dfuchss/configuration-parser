@@ -3,7 +3,12 @@ This small project realizes a framework to create visitors to set attributes in 
 
 Travis CI Status (master): [![Build Status](https://travis-ci.org/fuchss-dominik/visitors.svg?branch=master)](https://travis-ci.org/fuchss-dominik/visitors)
 
+Coverall (master): [![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/visitors/badge.svg?branch=master)](https://coveralls.io/github/fuchss-dominik/visitors?branch=master)
+
 Travis CI Status (develop):  [![Build Status](https://travis-ci.org/fuchss-dominik/visitors.svg?branch=develop)](https://travis-ci.org/fuchss-dominik/visitors)
+
+Coverall (develop): [![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/visitors/badge.svg?branch=develop)](https://coveralls.io/github/fuchss-dominik/visitors?branch=develop)
+
 # HowTo use ..?
 ## Use to set Int, Float, ...
 If you want to visit a Class / Object, you have to make sure:
