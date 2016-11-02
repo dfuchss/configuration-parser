@@ -1,13 +1,19 @@
-# visitors
-This small project realizes a framework to create visitors to set attributes in classes and objects via configuration files.
-## Status
-### Master (Stable):
-[![Build Status](https://travis-ci.org/fuchss-dominik/visitors.svg?branch=master)](https://travis-ci.org/fuchss-dominik/visitors) 
-[![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/visitors/badge.svg?branch=master)](https://coveralls.io/github/fuchss-dominik/visitors?branch=master)
+# visitors 
+[![GitHub issues](https://img.shields.io/github/issues/fuchss-dominik/visitors.svg?style=flat-square)](https://github.com/fuchss-dominik/visitors/issues)
+[![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg?style=flat-square)](https://raw.githubusercontent.com/fuchss-dominik/visitors/master/LICENSE.md)
 
-### Develop (Current):
-[![Build Status](https://travis-ci.org/fuchss-dominik/visitors.svg?branch=develop)](https://travis-ci.org/fuchss-dominik/visitors)
-[![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/visitors/badge.svg?branch=develop)](https://coveralls.io/github/fuchss-dominik/visitors?branch=develop)
+
+This small project realizes a framework to create visitors to set attributes in classes and objects via configuration files.
+# Status
+## Master (Stable):
+[![Build Status](https://img.shields.io/fuchss-dominik/visitors/master.svg?style=flat-square)](https://travis-ci.org/fuchss-dominik/visitors)
+[![Coverage Status](https://img.shields.io/fuchss-dominik/visitors/master.svg?style=flat-square)](https://coveralls.io/github/fuchss-dominik/visitors?branch=master)
+
+## Develop (Current):
+[![Build Status](https://img.shields.io/fuchss-dominik/visitors/develop.svg?style=flat-square)](https://travis-ci.org/fuchss-dominik/visitors)
+[![Coverage Status](https://img.shields.io/fuchss-dominik/visitors/develop.svg?style=flat-square)](https://coveralls.io/github/fuchss-dominik/visitors?branch=develop)
+
+
 
 # HowTo use ..?
 ## Use to set Int, Float, ...
