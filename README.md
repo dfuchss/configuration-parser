@@ -7,7 +7,7 @@ This small project realizes a framework to create visitors to set attributes in 
 
 ### Develop (Current):
 [![Build Status](https://travis-ci.org/fuchss-dominik/visitors.svg?branch=develop)](https://travis-ci.org/fuchss-dominik/visitors)
-[![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/visitors/badge.svg?branch=master)](https://coveralls.io/github/fuchss-dominik/visitors?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/visitors/badge.svg?branch=develop)](https://coveralls.io/github/fuchss-dominik/visitors?branch=develop)
 
 # HowTo use ..?
 ## Use to set Int, Float, ...
