@@ -70,4 +70,47 @@ public class ResourceBundleVisitorTest {
 	public void testIntZeroValue() {
 		Assert.assertEquals(0, DummyForResourceBundle.IntValueZero);
 	}
+
+	/**
+	 * Test whether {@link DummyForResourceBundle#CharD} is correctly set.
+	 */
+	@Test
+	public void testCharDValue() {
+		Assert.assertEquals('D', DummyForResourceBundle.CharD);
+	}
+
+	/**
+	 * Test whether {@link DummyForResourceBundle#BoolTrue} is correctly set.
+	 */
+	@Test
+	public void testBoolTrueValue() {
+		Assert.assertEquals(true, DummyForResourceBundle.BoolTrue);
+	}
+
+	/**
+	 * Test whether {@link DummyForResourceBundle#Byte127} is correctly set.
+	 */
+	@Test
+	public void testByte127Value() {
+		Assert.assertEquals((byte) 127, DummyForResourceBundle.Byte127);
+	}
+
+	/**
+	 * Test whether {@link DummyForResourceBundle#DoublePi} is correctly set.
+	 */
+	@Test
+	public void testDoublePiValue() {
+		Assert.assertEquals(3.141593, DummyForResourceBundle.DoublePi, 1E-8);
+	}
+
+	/**
+	 * Test whether {@link DummyForResourceBundle#Tuple} is correctly set.
+	 */
+	@Test
+	public void testTuple() {
+		Assert.assertNotNull(DummyForResourceBundle.Tuple);
+		Assert.assertEquals(DummyForResourceBundle.Tuple.stringA, "Hello");
+		Assert.assertEquals(DummyForResourceBundle.Tuple.stringB, "World");
+	}
+
 }
