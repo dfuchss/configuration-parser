@@ -1,13 +1,10 @@
 # visitors
-This small project realizes a framework to create visitors to set attributes in classes and objects via configuration files.
-## Status
-### Master (Stable):
-[![Build Status](https://travis-ci.org/fuchss-dominik/visitors.svg?branch=master)](https://travis-ci.org/fuchss-dominik/visitors) 
-[![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/visitors/badge.svg?branch=master)](https://coveralls.io/github/fuchss-dominik/visitors?branch=master)
+[![Build Status](https://travis-ci.org/fuchss-dominik/visitors.svg?branch=master)](https://travis-ci.org/fuchss-dominik/visitors)
+[![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/visitors/badge.svg?branch=develop)](https://coveralls.io/github/fuchss-dominik/visitors?branch=master)
+[![GitHub issues](https://img.shields.io/github/issues/fuchss-dominik/visitors.svg?style=square)](https://github.com/fuchss-dominik/visitors/issues)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=square)](https://raw.githubusercontent.com/fuchss-dominik/visitors/master/LICENSE.md)
 
-### Develop (Current):
-[![Build Status](https://travis-ci.org/fuchss-dominik/visitors.svg?branch=develop)](https://travis-ci.org/fuchss-dominik/visitors)
-[![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/visitors/badge.svg?branch=develop)](https://coveralls.io/github/fuchss-dominik/visitors?branch=develop)
+This small project realizes a framework to create visitors to set attributes in classes and objects via configuration files.
 
 # HowTo use ..?
 ## Use to set Int, Float, ...
