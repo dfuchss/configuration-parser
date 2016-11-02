@@ -2,6 +2,7 @@ package home.fox.visitors.dummy;
 
 import home.fox.visitors.Visitable;
 import home.fox.visitors.annotations.VisitInfo;
+import home.fox.visitors.toParse.Tuple;
 import home.fox.visitors.visitors.ResourceBundleVisitor;
 
 /**
@@ -29,4 +30,28 @@ public class DummyForResourceBundle implements Visitable {
 	 * Shall be {@code "HelloWorld"}.
 	 */
 	public static String HelloWorld;
+
+	/**
+	 * Shall be {@code 'D'}.
+	 */
+	public static char CharD;
+
+	/**
+	 * Shall be {@code true}.
+	 */
+	public static boolean BoolTrue;
+
+	/**
+	 * Shall be {@code 127}.
+	 */
+	public static byte Byte127;
+
+	/**
+	 * Shall be {@code 3.141593}.
+	 */
+	public static double DoublePi;
+	/**
+	 * Shall be (Hello,World) Tuple.
+	 */
+	public static Tuple Tuple;
 }

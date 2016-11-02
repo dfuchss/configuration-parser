@@ -2,7 +2,6 @@ package home.fox.visitors.parser;
 
 import java.lang.reflect.Field;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -33,7 +32,8 @@ public interface Parser {
 	static Logger getLogger() {
 		Logger logger = Logger.getLogger(Parser.class);
 		logger.setLevel(Level.ERROR);
-		BasicConfigurator.configure();
+		// Will set via Visitor-Parser.
+		// BasicConfigurator.configure();
 		return logger;
 
 	}
