@@ -1,6 +1,9 @@
 # visitors
 This small project realizes a framework to create visitors to set attributes in classes and objects via configuration files.
 
+Travis CI Status (master): [![Build Status](https://travis-ci.org/fuchss-dominik/visitors.svg?branch=master)](https://travis-ci.org/fuchss-dominik/visitors)
+
+Travis CI Status (develop):  [![Build Status](https://travis-ci.org/fuchss-dominik/visitors.svg?branch=develop)](https://travis-ci.org/fuchss-dominik/visitors)
 # HowTo use ..?
 ## Use to set Int, Float, ...
 If you want to visit a Class / Object, you have to make sure:
