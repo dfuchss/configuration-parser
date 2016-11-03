@@ -1,5 +1,6 @@
 package home.fox.visitors.annotations;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ResourceBundle;
@@ -14,6 +15,7 @@ import home.fox.visitors.visitors.ResourceBundleVisitor;
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
+@Documented
 public @interface VisitInfo {
 	/**
 	 * Indicates whether you want a visit.

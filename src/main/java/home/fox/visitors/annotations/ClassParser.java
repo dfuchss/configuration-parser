@@ -1,5 +1,6 @@
 package home.fox.visitors.annotations;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -15,6 +16,7 @@ import home.fox.visitors.parser.Parser;
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
+@Documented
 public @interface ClassParser {
 	/**
 	 * Get the parser-type.
