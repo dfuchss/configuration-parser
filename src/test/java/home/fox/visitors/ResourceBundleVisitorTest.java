@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import home.fox.visitors.annotations.NoVisit;
 import home.fox.visitors.dummy.DummyForResourceBundle;
 import home.fox.visitors.visitors.ResourceBundleVisitor;
 
@@ -18,7 +19,7 @@ public class ResourceBundleVisitorTest {
 	/**
 	 * An instance of {@link ResourceBundleVisitor}.
 	 */
-	private static final Visitor RESOURCE_BUNDLE_VISITOR = new ResourceBundleVisitor();
+	private static final Visitor RESOURCE_BUNDLE_VISITOR = Visitor.getNewVisitor();
 
 	/**
 	 * Activate the logger of {@link Visitor}.
@@ -111,6 +112,15 @@ public class ResourceBundleVisitorTest {
 		Assert.assertNotNull(DummyForResourceBundle.Tuple);
 		Assert.assertEquals(DummyForResourceBundle.Tuple.stringA, "Hello");
 		Assert.assertEquals(DummyForResourceBundle.Tuple.stringB, "World");
+	}
+
+	/**
+	 * Test whether {@link DummyForResourceBundle#HelloWorld2} is correctly set
+	 * (-> null) -> {@link NoVisit}.
+	 */
+	@Test
+	public void testHelloWorld2() {
+		Assert.assertNull(DummyForResourceBundle.HelloWorld2);
 	}
 
 }
