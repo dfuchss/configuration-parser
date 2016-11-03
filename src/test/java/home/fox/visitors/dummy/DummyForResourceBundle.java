@@ -1,6 +1,7 @@
 package home.fox.visitors.dummy;
 
 import home.fox.visitors.Visitable;
+import home.fox.visitors.annotations.NoVisit;
 import home.fox.visitors.annotations.VisitInfo;
 import home.fox.visitors.toParse.Tuple;
 import home.fox.visitors.visitors.ResourceBundleVisitor;
@@ -54,4 +55,10 @@ public class DummyForResourceBundle implements Visitable {
 	 * Shall be (Hello,World) Tuple.
 	 */
 	public static Tuple Tuple;
+
+	/**
+	 * Shall be {@code null}.
+	 */
+	@NoVisit
+	public static String HelloWorld2;
 }
