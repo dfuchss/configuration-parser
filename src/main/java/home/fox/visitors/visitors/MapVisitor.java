@@ -4,13 +4,15 @@ import java.util.Map;
 
 import home.fox.visitors.Visitable;
 import home.fox.visitors.Visitor;
+import home.fox.visitors.parser.MultiLevelParser;
 
 /**
  * This class realizes a {@link Visitor} which will use a {@link Map}.
  *
  * @author Dominik Fuchss
- *
+ * @deprecated Use {@link MultiLevelParser}.
  */
+@Deprecated
 public final class MapVisitor extends Visitor {
 	/**
 	 * The KV-Store.
@@ -24,6 +26,7 @@ public final class MapVisitor extends Visitor {
 	 *            the map
 	 */
 	public MapVisitor(Map<String, String> kv) {
+		super(null);
 		this.kv = kv;
 	}
 
@@ -38,7 +41,7 @@ public final class MapVisitor extends Visitor {
 	}
 
 	@Override
-	protected String getValue(String key) {
+	public String getValue(String key) {
 		if (this.kv == null || !this.kv.containsKey(key)) {
 			return null;
 		}

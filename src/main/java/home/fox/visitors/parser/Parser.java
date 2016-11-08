@@ -25,6 +25,11 @@ public interface Parser {
 	final Logger LOGGER = Parser.getLogger();
 
 	/**
+	 * The maximum recursion depth.
+	 */
+	final int MAX_DEPTH = 5;
+
+	/**
 	 * Do not invoke. Will be used to set {@link #LOGGER}
 	 *
 	 * @return the logger instance
@@ -48,15 +53,21 @@ public interface Parser {
 	 *            the current field
 	 * @param definition
 	 *            the String definition
+	 * @param path
+	 *            the recursive path to this element (field).
 	 * @return {@code true} if successful, {@code false} otherwise
 	 * @throws Exception
 	 *             will thrown by any error while parsing if no {@code false}
 	 *             can be returned
 	 *
 	 */
-	default boolean parse(Visitable obj, Field field, String definition) throws Exception {
+	default boolean parse(Visitable obj, Field field, String definition, String... path) throws Exception {
 		if (field == null || definition == null) {
 			Parser.LOGGER.error("Content cannot be parsed: field (" + field + ") or definition (" + definition + ") is null.");
+			return false;
+		}
+		if (path.length > Parser.MAX_DEPTH) {
+			Parser.LOGGER.error("Max depth reached. Parsing aborted.");
 			return false;
 		}
 		return true;

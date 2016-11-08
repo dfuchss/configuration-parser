@@ -110,8 +110,13 @@ public class ResourceBundleVisitorTest {
 	@Test
 	public void testTuple() {
 		Assert.assertNotNull(DummyForResourceBundle.Tuple);
-		Assert.assertEquals(DummyForResourceBundle.Tuple.stringA, "Hello");
-		Assert.assertEquals(DummyForResourceBundle.Tuple.stringB, "World");
+		Assert.assertEquals("Hello", DummyForResourceBundle.Tuple.stringA);
+		Assert.assertEquals("World", DummyForResourceBundle.Tuple.stringB);
+		// Inner tuple.
+		Assert.assertNotNull(DummyForResourceBundle.Tuple.innerTuple);
+		Assert.assertEquals("one", DummyForResourceBundle.Tuple.innerTuple.stringA);
+		Assert.assertNull(DummyForResourceBundle.Tuple.innerTuple.stringB);
+
 	}
 
 	/**
