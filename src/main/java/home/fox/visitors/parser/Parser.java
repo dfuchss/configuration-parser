@@ -54,16 +54,17 @@ public interface Parser {
 	 * @param definition
 	 *            the String definition
 	 * @param path
-	 *            the recursive path to this element (field).
+	 *            the recursive path to this element (field). For TopLevel: Use
+	 *            {@code new String[0]}
 	 * @return {@code true} if successful, {@code false} otherwise
 	 * @throws Exception
 	 *             will thrown by any error while parsing if no {@code false}
 	 *             can be returned
 	 *
 	 */
-	default boolean parse(Visitable obj, Field field, String definition, String... path) throws Exception {
-		if (field == null || definition == null) {
-			Parser.LOGGER.error("Content cannot be parsed: field (" + field + ") or definition (" + definition + ") is null.");
+	default boolean parse(Visitable obj, Field field, String definition, String[] path) throws Exception {
+		if (field == null || definition == null || path == null) {
+			Parser.LOGGER.error("Content cannot be parsed: field (" + field + ") or definition (" + definition + ") or path (" + path + ") is null.");
 			return false;
 		}
 		if (path.length > Parser.MAX_DEPTH) {

@@ -310,7 +310,7 @@ public abstract class Visitor {
 		try {
 			field.setAccessible(true);
 			Parser parser = this.getParser(field);
-			if (!parser.parse(v, field, val, this.getPath())) {
+			if (!parser.parse(v, field, val, this.getPath()) && val != null) {
 				Visitor.LOGGER.warn("Syntax-Error: Parser rejected content for " + field.getName() + " where content was " + val);
 			}
 		} catch (Exception e) {

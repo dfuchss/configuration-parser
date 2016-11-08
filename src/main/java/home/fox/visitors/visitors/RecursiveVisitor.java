@@ -7,7 +7,7 @@ import home.fox.visitors.parser.MultiLevelParser;
 /**
  * This visitor realizes a recursive visitor for visiting more complex objects.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  * @see MultiLevelParser
  *
  */

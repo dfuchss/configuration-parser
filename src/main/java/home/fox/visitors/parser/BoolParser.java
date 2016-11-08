@@ -12,8 +12,8 @@ import home.fox.visitors.Visitable;
  */
 public final class BoolParser implements Parser {
 	@Override
-	public boolean parse(Visitable obj, Field field, String definition, String... path) throws Exception {
-		if (!Parser.super.parse(obj, field, definition)) {
+	public boolean parse(Visitable obj, Field field, String definition, String[] path) throws Exception {
+		if (!Parser.super.parse(obj, field, definition, path)) {
 			return false;
 		}
 		field.set(obj, Boolean.parseBoolean(definition));

@@ -11,7 +11,7 @@ import home.fox.visitors.visitors.RecursiveVisitor;
  * This class realizes a parser for more complex objects, which have to be
  * parsed recursive.
  *
- * @author Dominik Fuchß
+ * @author Dominik Fuchss
  * @see RecursiveVisitor
  */
 public final class MultiLevelParser implements Parser {
@@ -32,7 +32,7 @@ public final class MultiLevelParser implements Parser {
 	}
 
 	@Override
-	public final boolean parse(Visitable obj, Field field, String definition, String... path) throws Exception {
+	public final boolean parse(Visitable obj, Field field, String definition, String[] path) throws Exception {
 		// No definition needed here, as we will parse recursive.
 		if (!Parser.super.parse(obj, field, definition == null ? "" : definition, path)) {
 			return false;
