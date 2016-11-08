@@ -14,8 +14,10 @@ import home.fox.visitors.visitors.MapVisitor;
  * Syntax: name1::optionValue1;name2::optionValue2
  *
  * @author Dominik Fuchss
+ * @deprecated use MultiLevelParser instead.
  *
  */
+@Deprecated
 public final class TwoLevelParser implements Parser {
 	/**
 	 * The mapping from stage-2-key to value.
@@ -31,7 +33,7 @@ public final class TwoLevelParser implements Parser {
 	private Pattern delimiter = Pattern.compile("::");
 
 	@Override
-	public final boolean parse(Visitable obj, Field field, String definition) throws Exception {
+	public final boolean parse(Visitable obj, Field field, String definition, String... path) throws Exception {
 		// reset mapping
 		this.mapping.clear();
 		if (!Parser.super.parse(obj, field, definition)) {

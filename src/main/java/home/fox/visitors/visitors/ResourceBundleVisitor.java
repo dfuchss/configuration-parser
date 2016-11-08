@@ -15,6 +15,13 @@ import home.fox.visitors.annotations.VisitInfo;
  */
 public final class ResourceBundleVisitor extends Visitor {
 	/**
+	 * Create a new Visitor.
+	 */
+	public ResourceBundleVisitor() {
+		super(null);
+	}
+
+	/**
 	 * The bundle.
 	 */
 	private ResourceBundle bundle;
@@ -36,7 +43,7 @@ public final class ResourceBundleVisitor extends Visitor {
 	}
 
 	@Override
-	protected String getValue(String key) {
+	public String getValue(String key) {
 		if (this.bundle == null) {
 			return null;
 		}

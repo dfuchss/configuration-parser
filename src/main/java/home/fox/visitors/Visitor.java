@@ -1,7 +1,6 @@
 package home.fox.visitors;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -23,6 +22,7 @@ import home.fox.visitors.parser.DoubleParser;
 import home.fox.visitors.parser.FloatParser;
 import home.fox.visitors.parser.IntParser;
 import home.fox.visitors.parser.LongParser;
+import home.fox.visitors.parser.MultiLevelParser;
 import home.fox.visitors.parser.Parser;
 import home.fox.visitors.parser.StringParser;
 import home.fox.visitors.visitors.ResourceBundleVisitor;
@@ -57,9 +57,20 @@ public abstract class Visitor {
 	}
 
 	/**
-	 * Prevent illegal instantiation.
+	 * The parent of the visitor.
+	 *
+	 * @see MultiLevelParser
 	 */
-	protected Visitor() {
+	protected final Visitor parent;
+
+	/**
+	 * Set necessary fields.
+	 *
+	 * @param parent
+	 *            the parent visitor
+	 */
+	protected Visitor(Visitor parent) {
+		this.parent = parent;
 	}
 
 	/**
@@ -79,6 +90,7 @@ public abstract class Visitor {
 			this.putMore(new IntParser(), Integer.class, Integer.TYPE);
 			this.putMore(new LongParser(), Long.class, Long.TYPE);
 			this.putMore(new StringParser(), String.class);
+			this.put(null, new MultiLevelParser(Visitor.this));
 		}
 
 		/**
@@ -123,7 +135,7 @@ public abstract class Visitor {
 	 *            the key ({@link Field#getName()})
 	 * @return {@code null} if no value found, the value otherwise
 	 */
-	protected abstract String getValue(String key);
+	public abstract String getValue(String key);
 
 	/**
 	 * Visit a visitable (only non-static).
@@ -170,22 +182,11 @@ public abstract class Visitor {
 	 *
 	 * @param field
 	 *            the field
-	 * @return the parser or {@code null} if none suitable found
-	 * @throws SecurityException
-	 *             reflect stuff
-	 * @throws NoSuchMethodException
-	 *             reflect stuff
-	 * @throws InvocationTargetException
-	 *             reflect stuff
-	 * @throws IllegalArgumentException
-	 *             reflect stuff
-	 * @throws IllegalAccessException
-	 *             reflect stuff
-	 * @throws InstantiationException
+	 * @return the parser or {@link MultiLevelParser} if none suitable found
+	 * @throws Exception
 	 *             reflect stuff
 	 */
-	private Parser getParser(Field field) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
-			NoSuchMethodException, SecurityException {
+	private Parser getParser(Field field) throws Exception {
 		// First the field specific.
 		SetParser manual = field.getDeclaredAnnotation(SetParser.class);
 		if (manual != null) {
@@ -197,7 +198,12 @@ public abstract class Visitor {
 			return clazzParser.value().getDeclaredConstructor().newInstance();
 		}
 		// Then the default.
-		return this.parsers.get(field.getType());
+		if (this.parsers.containsKey(field.getType())) {
+			return this.parsers.get(field.getType());
+		}
+		// If none found use MultiLevelParser.
+		Visitor.LOGGER.info("Using MultiLevelParser for " + field.getName());
+		return this.parsers.get(null);
 	}
 
 	/**
@@ -258,10 +264,10 @@ public abstract class Visitor {
 		if (field.getAnnotation(NoVisit.class) != null) {
 			return;
 		}
-		String val = null;
+		String val = this.getValue(field.getName());
 		int mod = field.getModifiers();
-		if (!Modifier.isStatic(mod) || Modifier.isFinal(mod) || (val = this.getValue(field.getName())) == null) {
-			Visitor.LOGGER.warn("Field " + field.getName() + " is non-static or is final or has no value");
+		if (!Modifier.isStatic(mod) || Modifier.isFinal(mod)) {
+			Visitor.LOGGER.warn("Field " + field.getName() + " is non-static or is final");
 			return;
 		}
 		this.applyToField(null, field, val);
@@ -280,10 +286,10 @@ public abstract class Visitor {
 		if (field.getAnnotation(NoVisit.class) != null) {
 			return;
 		}
+		String val = this.getValue(field.getName());
 		int mod = field.getModifiers();
-		String val = null;
-		if (Modifier.isStatic(mod) || Modifier.isFinal(mod) || (val = this.getValue(field.getName())) == null) {
-			Visitor.LOGGER.warn("Field " + field.getName() + " is static or is final or has no value");
+		if (Modifier.isStatic(mod) || Modifier.isFinal(mod)) {
+			Visitor.LOGGER.warn("Field " + field.getName() + " is static or is final");
 			return;
 		}
 		this.applyToField(v, field, val);
@@ -304,17 +310,31 @@ public abstract class Visitor {
 		try {
 			field.setAccessible(true);
 			Parser parser = this.getParser(field);
-			if (parser == null) {
-				Visitor.LOGGER.error("No parser found for " + field.getName());
-				return;
-			}
-			if (!parser.parse(v, field, val)) {
-				Visitor.LOGGER.error("Syntax-Error: Parser rejected content for " + field.getName() + " where content was " + val);
+			if (!parser.parse(v, field, val, this.getPath())) {
+				Visitor.LOGGER.warn("Syntax-Error: Parser rejected content for " + field.getName() + " where content was " + val);
 			}
 		} catch (Exception e) {
 			Visitor.LOGGER.error("Cannot apply to field: " + field.getName() + " because " + e.getMessage());
 		}
 
+	}
+
+	/**
+	 * Get the current path.
+	 *
+	 * @return the recursive path.
+	 */
+	protected String[] getPath() {
+		return new String[0];
+	}
+
+	/**
+	 * Get the parent (recursive) visitor of this visitor.
+	 *
+	 * @return the most parent parser.
+	 */
+	public Visitor getParent() {
+		return this;
 	}
 
 }

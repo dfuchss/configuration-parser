@@ -36,11 +36,13 @@ If you want to use maven or some similar tool, I would recommend to use somethin
 @VisitInfo(res = "conf/myconf", visit = true)
 public class MyClass implements Visitable {
 	public static long longValue;
+	public static MoreComplex complex;
 }
 ```
 * src/main/resources/conf/myconf.properties:
 ```
 longValue=42
+complex.fieldA=ABC
 ```
 * src/main/java/Main.java:
 ```java
@@ -62,8 +64,8 @@ public class ClassWithParser implements Visitable {
 ```java
   public class MyParser implements Parser {
     @Override
-    public boolean parse(Visitable obj, Field field, String definition) throws Exception {
-        if (!Parser.super.parse(obj, field, definition)) {
+    public boolean parse(Visitable obj, Field field, String definition, String... path) throws Exception {
+        if (!Parser.super.parse(obj, field, definition, path)) {
           return false;
         }
         ClassWithParser c = new ClassWithParser();
