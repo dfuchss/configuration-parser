@@ -13,8 +13,8 @@ import home.fox.visitors.toParse.StringB;
  */
 public class StringBParser implements Parser {
 	@Override
-	public boolean parse(Visitable obj, Field field, String definition, String... path) throws Exception {
-		if (!Parser.super.parse(obj, field, definition)) {
+	public boolean parse(Visitable obj, Field field, String definition, String[] path) throws Exception {
+		if (!Parser.super.parse(obj, field, definition, path)) {
 			return false;
 		}
 		StringB string = new StringB();

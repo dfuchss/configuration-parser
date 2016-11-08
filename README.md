@@ -7,7 +7,7 @@
 This small project realizes a framework to create visitors to set attributes in classes and objects via configuration files.
 
 # HowTo use ..?
-## Use to set Int, Float, ...
+## Use to set Int, Float, []
 If you want to visit a Class / Object, you have to make sure:
 * The class **implements Visitable**
 * You've set the **VisitInfo** annotation to the class (for ResourceBundle) & set **visit=true**
@@ -24,7 +24,7 @@ If you want to visit a Class / Object which contains fields of types you've crea
 
 * You can annotate the field which can't be parsed with `@SetParser` and set the parser only for the field.
 
-* If the class (-> type of the attribute) only contains basic attributes (int, float, ...) you can also use the TwoLevelParser.
+* If the class (-> type of the attribute) only contains basic attributes (int, float, []) you can also use the TwoLevelParser.
 
 # Maven & Co.
 If you want to use maven or some similar tool, I would recommend to use something like https://jitpack.io/ to get the code.
@@ -64,7 +64,7 @@ public class ClassWithParser implements Visitable {
 ```java
   public class MyParser implements Parser {
     @Override
-    public boolean parse(Visitable obj, Field field, String definition, String... path) throws Exception {
+    public boolean parse(Visitable obj, Field field, String definition, String[] path) throws Exception {
         if (!Parser.super.parse(obj, field, definition, path)) {
           return false;
         }
