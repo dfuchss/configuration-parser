@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>home.fox</groupId>
 	<artifactId>visitors</artifactId>
-	<version>0.3.6</version>
+	<version>0.3.7</version>
 	<name>Visitors</name>
 	<description>This small project realizes a framework to create visitors to set attributes in classes and objects via configuration files.</description>
 	<properties>
