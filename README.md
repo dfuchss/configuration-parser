@@ -1,5 +1,6 @@
 # visitors
 [![Build Status](https://travis-ci.org/fuchss-dominik/visitors.svg?branch=master)](https://travis-ci.org/fuchss-dominik/visitors)
+[![](https://jitpack.io/v/fuchss-dominik/visitors.svg)](https://jitpack.io/#fuchss-dominik/visitors)
 [![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/visitors/badge.svg?branch=develop)](https://coveralls.io/github/fuchss-dominik/visitors?branch=master)
 [![GitHub issues](https://img.shields.io/github/issues/fuchss-dominik/visitors.svg?style=square)](https://github.com/fuchss-dominik/visitors/issues)
 [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg?style=square)](https://raw.githubusercontent.com/fuchss-dominik/visitors/master/LICENSE.md)
