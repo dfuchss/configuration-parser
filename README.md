@@ -8,7 +8,7 @@
 This small project realizes a framework to create visitors to set attributes in classes and objects via configuration files.
 
 # HowTo use ..?
-## Use to set Int, Float, []
+## Use to set Int, Float, ...
 If you want to visit a Class / Object, you have to make sure:
 * The class **implements Visitable**
 * You've set the **VisitInfo** annotation to the class (for ResourceBundle) & set **visit=true**
