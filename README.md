@@ -25,7 +25,7 @@ If you want to visit a Class / Object which contains fields of types you've crea
 
 * You can annotate the field which can't be parsed with `@SetParser` and set the parser only for the field.
 
-* If the class (-> type of the attribute) only contains basic attributes (int, float, []) you can also use the TwoLevelParser.
+* If the class (-> type of the attribute) only contains basic attributes (int, float, ...) you can also use the MultiLevelParser (Also this parser will be used if no other parser can be found).
 
 # Maven & Co.
 If you want to use maven or some similar tool, I would recommend to use something like https://jitpack.io/ to get the code.
