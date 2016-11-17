@@ -333,8 +333,11 @@ public abstract class Visitor {
 	 *
 	 * @return the most parent parser.
 	 */
-	public Visitor getParent() {
-		return this;
+	public final Visitor getParent() {
+		if (this.parent == null || this.parent == this) {
+			return this;
+		}
+		return this.parent.getParent();
 	}
 
 }

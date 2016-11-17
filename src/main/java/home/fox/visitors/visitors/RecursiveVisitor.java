@@ -64,9 +64,4 @@ public final class RecursiveVisitor extends Visitor {
 		return this.path;
 	}
 
-	@Override
-	public Visitor getParent() {
-		return this.parent;
-	}
-
 }
