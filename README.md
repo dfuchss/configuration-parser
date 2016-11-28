@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/fuchss-dominik/visitors.svg?branch=master)](https://travis-ci.org/fuchss-dominik/visitors)
 [![](https://jitpack.io/v/fuchss-dominik/visitors.svg)](https://jitpack.io/#fuchss-dominik/visitors)
 [![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/visitors/badge.svg?branch=master)](https://coveralls.io/github/fuchss-dominik/visitors?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/583bfc0ad2d44d0043522685/badge.svg?style=square)](https://www.versioneye.com/user/projects/583bfc0ad2d44d0043522685)
 [![GitHub issues](https://img.shields.io/github/issues/fuchss-dominik/visitors.svg?style=square)](https://github.com/fuchss-dominik/visitors/issues)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=square)](https://raw.githubusercontent.com/fuchss-dominik/visitors/master/LICENSE.md)
 
