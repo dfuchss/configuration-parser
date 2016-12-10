@@ -1,6 +1,7 @@
 package home.fox.visitors.parser;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -64,7 +65,8 @@ public interface Parser {
 	 */
 	default boolean parse(Visitable obj, Field field, String definition, String[] path) throws Exception {
 		if (field == null || definition == null || path == null) {
-			Parser.LOGGER.error("Content cannot be parsed: field (" + field + ") or definition (" + definition + ") or path (" + path + ") is null.");
+			Parser.LOGGER.warn("Content cannot be parsed: field (" + field + ") or definition (" + definition + ") or path (" + Arrays.toString(path)
+					+ ") is null.");
 			return false;
 		}
 		if (path.length > Parser.MAX_DEPTH) {

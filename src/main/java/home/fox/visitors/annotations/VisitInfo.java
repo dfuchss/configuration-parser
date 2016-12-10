@@ -20,9 +20,10 @@ public @interface VisitInfo {
 	/**
 	 * Indicates whether you want a visit.
 	 *
-	 * @return {@code true} if visit is allowed, {@code false} otherwise
+	 * @return {@code true} (by default) if visit is allowed, {@code false}
+	 *         otherwise
 	 */
-	public boolean visit();
+	public boolean visit() default true;
 
 	/**
 	 * Get the path to the corresponding property file.

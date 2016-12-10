@@ -41,7 +41,8 @@ public final class MultiLevelParser implements Parser {
 		Object instance = field.getType().getDeclaredConstructor().newInstance();
 		if (!(instance instanceof Visitable)) {
 			Parser.LOGGER.error("MultiLevelParser: " //
-					+ "Cannot parse " + field.getName() + " in " + (obj == null ? "unknown class" : obj.getClass().getSimpleName())
+					+ "Cannot parse " + field.getName() + " in " //
+					+ (obj == null ? "unknown class" : obj.getClass().getSimpleName()) //
 					+ ": The field could not be instantiated as Visitable.");
 			return false;
 		}

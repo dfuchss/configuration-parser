@@ -41,6 +41,7 @@ public abstract class Visitor {
 	 * The logger of the Visitor class.
 	 */
 	public static final Logger LOGGER = Logger.getLogger(Visitor.class);
+
 	static {
 		Visitor.LOGGER.setLevel(Level.ERROR);
 		BasicConfigurator.configure();
@@ -55,6 +56,11 @@ public abstract class Visitor {
 	public static final Visitor getNewVisitor() {
 		return new ResourceBundleVisitor();
 	}
+
+	/**
+	 * Maximum recursion-depth of {@link #getParent()}.
+	 */
+	private static final int MAX_DEPTH = 10;
 
 	/**
 	 * The parent of the visitor.
@@ -267,7 +273,7 @@ public abstract class Visitor {
 		String val = this.getValue(field.getName());
 		int mod = field.getModifiers();
 		if (!Modifier.isStatic(mod) || Modifier.isFinal(mod)) {
-			Visitor.LOGGER.warn("Field " + field.getName() + " is non-static or is final");
+			Visitor.LOGGER.info("Field " + field.getName() + " is non-static or is final");
 			return;
 		}
 		this.applyToField(null, field, val);
@@ -289,7 +295,7 @@ public abstract class Visitor {
 		String val = this.getValue(field.getName());
 		int mod = field.getModifiers();
 		if (Modifier.isStatic(mod) || Modifier.isFinal(mod)) {
-			Visitor.LOGGER.warn("Field " + field.getName() + " is static or is final");
+			Visitor.LOGGER.info("Field " + field.getName() + " is static or is final");
 			return;
 		}
 		this.applyToField(v, field, val);
@@ -331,13 +337,30 @@ public abstract class Visitor {
 	/**
 	 * Get the parent (recursive) visitor of this visitor.
 	 *
-	 * @return the most parent parser.
+	 * @return the most parent visitor.
 	 */
 	public final Visitor getParent() {
+		return this.getParent(0);
+	}
+
+	/**
+	 * Same as {@link #getParent()}.
+	 *
+	 * @param depth
+	 *            the recursion depth
+	 * @return the most parent visitor.
+	 * @throws Error
+	 *             if {@link #MAX_DEPTH} has been reached
+	 */
+	private Visitor getParent(int depth) {
+		if (depth > Visitor.MAX_DEPTH) {
+			throw new Error("MAX_DEPTH has been reached. Abort");
+		}
 		if (this.parent == null || this.parent == this) {
 			return this;
 		}
-		return this.parent.getParent();
+		return this.parent.getParent(depth + 1);
+
 	}
 
 }
