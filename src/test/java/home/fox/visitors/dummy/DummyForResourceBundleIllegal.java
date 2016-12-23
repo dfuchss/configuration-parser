@@ -7,14 +7,14 @@ import home.fox.visitors.toParse.Tuple;
 import home.fox.visitors.visitors.ResourceBundleVisitor;
 
 /**
- * This class will be used to test several functionality of the
+ * This class will be used to test several functionality (error handling) of the
  * {@link ResourceBundleVisitor} and {@link VisitInfo}.
  *
  * @author Dominik Fuchss
  *
  */
-@VisitInfo(res = "conf/dummyForResourceBundle", visit = true)
-public class DummyForResourceBundle implements Visitable {
+@VisitInfo(res = "conf/dummyForResourceBundleIllegal", visit = true)
+public class DummyForResourceBundleIllegal implements Visitable {
 	/**
 	 * Shall be {@code 1}.
 	 */
@@ -22,7 +22,7 @@ public class DummyForResourceBundle implements Visitable {
 	/**
 	 * Shall be {@code 0}.
 	 */
-	public static int IntValueZero = 100;
+	public static int IntValueZero;
 	/**
 	 * Shall be {@code 0.5F}.
 	 */
