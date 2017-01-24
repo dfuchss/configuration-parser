@@ -3,6 +3,7 @@ package home.fox.visitors;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -151,16 +152,12 @@ public abstract class Visitor {
 	 */
 	public final synchronized void visit(Visitable v) {
 		if (!this.createSource(v)) {
-			Visitor.LOGGER.error("Cannot create source for " + v.getClass());
+			Visitor.LOGGER.info("Cannot create source for " + v.getClass());
 			return;
 		}
 		Visitor.LOGGER.info("Visit object of class " + v.getClass().getSimpleName());
-		for (Field field : v.getClass().getDeclaredFields()) {
-			this.applyObject(v, field);
-		}
-		for (Method m : v.getClass().getDeclaredMethods()) {
-			this.afterObject(v, m);
-		}
+		Arrays.stream(v.getClass().getDeclaredFields()).forEach(field -> this.applyObject(v, field));
+		Arrays.stream(v.getClass().getDeclaredMethods()).forEach(method -> this.afterObject(v, method));
 	}
 
 	/**
@@ -171,16 +168,12 @@ public abstract class Visitor {
 	 */
 	public final synchronized void visit(Class<? extends Visitable> v) {
 		if (!this.createSource(v)) {
-			Visitor.LOGGER.error("Cannot create source for " + v);
+			Visitor.LOGGER.info("Cannot create source for " + v);
 			return;
 		}
 		Visitor.LOGGER.info("Visit class " + v.getSimpleName());
-		for (Field field : v.getDeclaredFields()) {
-			this.applyStatic(field);
-		}
-		for (Method m : v.getDeclaredMethods()) {
-			this.afterStatic(m);
-		}
+		Arrays.stream(v.getDeclaredFields()).forEach(this::applyStatic);
+		Arrays.stream(v.getDeclaredMethods()).forEach(this::afterStatic);
 	}
 
 	/**
