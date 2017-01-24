@@ -1,6 +1,5 @@
 package home.fox.visitors;
 
-import java.lang.reflect.Field;
 import java.util.Stack;
 
 import org.apache.log4j.AppenderSkeleton;
@@ -108,9 +107,9 @@ public class VisitorTest {
 	public void checkNoVisitInfo() throws Exception {
 		ResourceBundleVisitor visitor = new ResourceBundleVisitor();
 		visitor.visit(MissingVisitInfo.class);
-		this.expectLevel(Level.ERROR, Level.INFO);
+		this.expectLevel(Level.INFO, Level.INFO);
 		visitor.visit(new MissingVisitInfo());
-		this.expectLevel(Level.ERROR, Level.INFO);
+		this.expectLevel(Level.INFO, Level.INFO);
 		Assert.assertNull(visitor.getValue("KEY"));
 
 	}
@@ -133,23 +132,6 @@ public class VisitorTest {
 	private void expectLevel(Level... levels) {
 		for (Level level : levels) {
 			Assert.assertEquals(level, this.appender.events.pop().getLevel());
-		}
-	}
-
-	/**
-	 * Get field by name.
-	 *
-	 * @param name
-	 *            the name
-	 * @return the field
-	 *
-	 */
-	private Field getField(String name) {
-		try {
-			return this.getClass().getDeclaredField(name);
-		} catch (NoSuchFieldException | SecurityException e) {
-			Assert.fail();
-			return null;
 		}
 	}
 }
