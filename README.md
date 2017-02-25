@@ -1,4 +1,4 @@
-# visitors
+# configuration-parser
 [![Build Status](https://travis-ci.org/fuchss-dominik/visitors.svg?branch=master)](https://travis-ci.org/fuchss-dominik/visitors)
 [![](https://jitpack.io/v/fuchss-dominik/visitors.svg)](https://jitpack.io/#fuchss-dominik/visitors)
 [![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/visitors/badge.svg?branch=master)](https://coveralls.io/github/fuchss-dominik/visitors?branch=master)
