@@ -1,25 +1,25 @@
 # configuration-parser
-[![Build Status](https://travis-ci.org/fuchss-dominik/visitors.svg?branch=master)](https://travis-ci.org/fuchss-dominik/visitors)
-[![](https://jitpack.io/v/fuchss-dominik/visitors.svg)](https://jitpack.io/#fuchss-dominik/visitors)
-[![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/visitors/badge.svg?branch=master)](https://coveralls.io/github/fuchss-dominik/visitors?branch=master)
-[![GitHub issues](https://img.shields.io/github/issues/fuchss-dominik/visitors.svg?style=square)](https://github.com/fuchss-dominik/visitors/issues)
-[![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg?style=square)](https://raw.githubusercontent.com/fuchss-dominik/visitors/master/LICENSE.md)
+[![Build Status](https://travis-ci.org/fuchss-dominik/configuration-parser.svg?branch=master)](https://travis-ci.org/fuchss-dominik/configuration-parser)
+[![](https://jitpack.io/v/fuchss-dominik/configuration-parser.svg)](https://jitpack.io/#fuchss-dominik/configuration-parser)
+[![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/configuration-parser/badge.svg?branch=master)](https://coveralls.io/github/fuchss-dominik/configuration-parser?branch=master)
+[![GitHub issues](https://img.shields.io/github/issues/fuchss-dominik/configuration-parser.svg?style=square)](https://github.com/fuchss-dominik/configuration-parser/issues)
+[![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg?style=square)](https://raw.githubusercontent.com/fuchss-dominik/configuration-parser/master/LICENSE.md)
 
-This small project realizes a framework to create visitors to set attributes in classes and objects via configuration files.
+This repo contains a small project to set attributes of classes and objects.
 
 # HowTo use ..?
 ## Use to set Int, Float, ...
-If you want to visit a Class / Object, you have to make sure:
-* The class **implements Visitable**
-* You've set the **VisitInfo** annotation to the class (for ResourceBundle) & set **visit=true**
+If you want to set attributes of a class / Object, you have to make sure:
+* The class **implements Configurable**
+* You've set the **SetterInfo** annotation to the class (for ResourceBundle)
 
 Then just call
-* `Visitor.getNewVisitor().visit(Foo.class);` for visiting static fields of the class
+* `new ResourceBundleSetter().setAttributes(Foo.class);` for setting static fields of the class
 
-* `Visitor.getNewVisitor().visit(obj);` for visiting non-static fields of an object obj
+* `new ResourceBundleSetter().setAttributes(obj);` for setting non-static fields of an object obj
 
 ## Use to set MyType-Fields
-If you want to visit a Class / Object which contains fields of types you've created or types which I currently not support you have three options to parse these fields:
+If you want to set attributes of a class / Object which contains fields of types you've created or types which I currently not support you have three options to parse these fields:
 
 * You can annotate the class (-> type of the attribute) you want to parse with `@ClassParser` and set the parser of this type of objects.
 
@@ -31,11 +31,11 @@ If you want to visit a Class / Object which contains fields of types you've crea
 If you want to use maven or some similar tool, I would recommend to use something like https://jitpack.io/ to get the code.
 
 # Examples
-## Example 1: Simple Visitable Class
+## Example 1: Simple Configurable Class
 * src/main/java/MyClass.java:
 ```java
-@VisitInfo(res = "conf/myconf", visit = true)
-public class MyClass implements Visitable {
+@SetterInfo(res = "conf/myconf")
+public class MyClass implements Configurable {
 	public static long longValue;
 	public static MoreComplex complex;
 }
@@ -49,7 +49,7 @@ complex.fieldA=ABC
 ```java
 public class Main {
     public static void main(String[] args) {
-      Visitor.getNewVisitor().visit(MyClass.class);
+      new ResourceBundleSetter().setAttributes(MyClass.class);
     }
 }
 ```
@@ -57,7 +57,7 @@ public class Main {
 * src/main/java/ClassWithParser.java:
 ```java
 @ClassParser(MyParser.class)
-public class ClassWithParser implements Visitable {
+public class ClassWithParser implements Configurable {
     public int attribute;
 }
 ```
@@ -65,7 +65,7 @@ public class ClassWithParser implements Visitable {
 ```java
   public class MyParser implements Parser {
     @Override
-    public boolean parse(Visitable obj, Field field, String definition, String[] path) throws Exception {
+    public boolean parse(Configurable obj, Field field, String definition, String[] path) throws Exception {
         if (!Parser.super.parse(obj, field, definition, path)) {
           return false;
         }
@@ -79,14 +79,14 @@ public class ClassWithParser implements Visitable {
 ## Example 3: Additional Parsers II
 * src/main/java/ClassWithoutParser.java:
 ```java
-public class ClassWithoutParser implements Visitable {
+public class ClassWithoutParser implements Configurable {
     public int attribute;
 }
 ```
 * src/main/java/MyClass.java:
 ```java
-@VisitInfo(res = "conf/myconf", visit = true)
-public class MyClass implements Visitable {
+@SetterInfo(res = "conf/myconf")
+public class MyClass implements Configurable {
     @SetParser(MyParser.class)
     public static ClassWithoutParser attr;
 }
