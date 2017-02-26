@@ -206,11 +206,7 @@ public abstract class Setter {
 	 */
 	private void afterStatic(Method m) {
 		try {
-			if (!Modifier.isStatic(m.getModifiers())) {
-				return;
-			}
-			AfterSetting afterSetting = m.getAnnotation(AfterSetting.class);
-			if (afterSetting == null) {
+			if (!Modifier.isStatic(m.getModifiers()) || m.getAnnotation(AfterSetting.class) == null) {
 				return;
 			}
 			m.setAccessible(true);
@@ -231,11 +227,7 @@ public abstract class Setter {
 	 */
 	private void afterObject(Configurable configurable, Method m) {
 		try {
-			if (Modifier.isStatic(m.getModifiers())) {
-				return;
-			}
-			AfterSetting afterSetting = m.getDeclaredAnnotation(AfterSetting.class);
-			if (afterSetting == null) {
+			if (Modifier.isStatic(m.getModifiers()) || m.getDeclaredAnnotation(AfterSetting.class) == null) {
 				return;
 			}
 			m.setAccessible(true);
@@ -256,13 +248,12 @@ public abstract class Setter {
 		if (field.getAnnotation(NoSet.class) != null) {
 			return;
 		}
-		String val = this.getValue(field.getName());
 		int mod = field.getModifiers();
 		if (!Modifier.isStatic(mod) || Modifier.isFinal(mod)) {
 			Setter.LOGGER.info("Field " + field.getName() + " is non-static or is final");
 			return;
 		}
-		this.applyToField(null, field, val);
+		this.applyToField(null, field, this.getValue(field.getName()));
 	}
 
 	/**
@@ -278,13 +269,12 @@ public abstract class Setter {
 		if (field.getAnnotation(NoSet.class) != null) {
 			return;
 		}
-		String val = this.getValue(field.getName());
 		int mod = field.getModifiers();
 		if (Modifier.isStatic(mod) || Modifier.isFinal(mod)) {
 			Setter.LOGGER.info("Field " + field.getName() + " is static or is final");
 			return;
 		}
-		this.applyToField(configurable, field, val);
+		this.applyToField(configurable, field, this.getValue(field.getName()));
 	}
 
 	/**
