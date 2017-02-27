@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 
 import home.fox.configuration.Configurable;
+import home.fox.configuration.Messages;
 import home.fox.configuration.Setter;
 import home.fox.configuration.setters.RecursiveSetter;
 
@@ -39,10 +40,10 @@ public final class MultiLevelParser implements Parser {
 
 		Object instance = field.getType().getDeclaredConstructor().newInstance();
 		if (!(instance instanceof Configurable)) {
-			Parser.LOGGER.error("MultiLevelParser: " //
-					+ "Cannot parse " + field.getName() + " in " //
-					+ (obj == null ? "unknown class" : obj.getClass().getSimpleName()) //
-					+ ": The field could not be instantiated as Configurable.");
+			Parser.LOGGER.error(Messages.getString("MultiLevelParser.1") // //$NON-NLS-1$
+					+ Messages.getString("MultiLevelParser.2") + field.getName() + Messages.getString("MultiLevelParser.3") // //$NON-NLS-1$ //$NON-NLS-2$
+					+ (obj == null ? Messages.getString("MultiLevelParser.4") : obj.getClass().getSimpleName()) // //$NON-NLS-1$
+					+ Messages.getString("MultiLevelParser.5")); //$NON-NLS-1$
 			return false;
 		}
 		String[] newPath = Arrays.copyOf(path, path.length + 1);

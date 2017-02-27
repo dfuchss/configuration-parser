@@ -3,6 +3,7 @@ package home.fox.configuration.setters;
 import java.util.ResourceBundle;
 
 import home.fox.configuration.Configurable;
+import home.fox.configuration.Messages;
 import home.fox.configuration.Setter;
 import home.fox.configuration.annotations.SetterInfo;
 
@@ -35,7 +36,7 @@ public final class ResourceBundleSetter extends Setter {
 	protected boolean createSource(Class<? extends Configurable> v) {
 		SetterInfo info = v.getAnnotation(SetterInfo.class);
 		if (info == null || !info.set()) {
-			Setter.LOGGER.info("No info defined or disabled for Class " + v.getSimpleName());
+			Setter.LOGGER.info(Messages.getString("ResourceBundleSetter.0") + v.getSimpleName()); //$NON-NLS-1$
 			return false;
 		}
 		this.bundle = ResourceBundle.getBundle(info.res());

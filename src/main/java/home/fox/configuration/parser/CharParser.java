@@ -3,6 +3,7 @@ package home.fox.configuration.parser;
 import java.lang.reflect.Field;
 
 import home.fox.configuration.Configurable;
+import home.fox.configuration.Messages;
 
 /**
  * This {@link Parser} is used for parsing {@link Character Characters}.
@@ -17,7 +18,7 @@ public final class CharParser implements Parser {
 			return false;
 		}
 		if (definition.length() != 1) {
-			Parser.LOGGER.error("Length != 1 => No Character");
+			Parser.LOGGER.error(Messages.getString("CharParser.0")); //$NON-NLS-1$
 			return false;
 		}
 		field.set(obj, definition.charAt(0));
