@@ -1,6 +1,7 @@
 package home.fox.configuration.setters;
 
 import home.fox.configuration.Configurable;
+import home.fox.configuration.Messages;
 import home.fox.configuration.Setter;
 import home.fox.configuration.parser.MultiLevelParser;
 
@@ -33,7 +34,7 @@ public final class RecursiveSetter extends Setter {
 	public RecursiveSetter(String[] path, Setter parent) {
 		super(parent);
 		if (parent == null) {
-			throw new IllegalArgumentException("A parent setter is needed by RecursiveSetter");
+			throw new IllegalArgumentException(Messages.getString("RecursiveSetter.0")); //$NON-NLS-1$
 		}
 		this.path = path;
 

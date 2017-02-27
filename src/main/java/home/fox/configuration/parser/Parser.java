@@ -7,6 +7,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import home.fox.configuration.Configurable;
+import home.fox.configuration.Messages;
 import home.fox.configuration.Setter;
 import home.fox.configuration.annotations.SetterInfo;
 
@@ -65,12 +66,12 @@ public interface Parser {
 	 */
 	default boolean parse(Configurable obj, Field field, String definition, String[] path) throws Exception {
 		if (field == null || definition == null || path == null) {
-			Parser.LOGGER.warn("Content cannot be parsed: field (" + field + ") or definition (" + definition + ") or path (" + Arrays.toString(path)
-					+ ") is null.");
+			Parser.LOGGER.warn(Messages.getString("Parser.0") + field + Messages.getString("Parser.1") + definition + Messages.getString("Parser.2") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					+ Arrays.toString(path) + Messages.getString("Parser.3")); //$NON-NLS-1$
 			return false;
 		}
 		if (path.length > Parser.MAX_DEPTH) {
-			Parser.LOGGER.error("Max depth reached. Parsing aborted.");
+			Parser.LOGGER.error(Messages.getString("Parser.4")); //$NON-NLS-1$
 			return false;
 		}
 		return true;

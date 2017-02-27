@@ -145,10 +145,10 @@ public abstract class Setter {
 	 */
 	public final synchronized void setAttributes(Configurable configurable) {
 		if (!this.createSource(configurable)) {
-			Setter.LOGGER.info("Cannot create source for " + configurable.getClass());
+			Setter.LOGGER.info(Messages.getString("Setter.0") + configurable.getClass()); //$NON-NLS-1$
 			return;
 		}
-		Setter.LOGGER.info("Setting attributes in object of class " + configurable.getClass().getSimpleName());
+		Setter.LOGGER.info(Messages.getString("Setter.1") + configurable.getClass().getSimpleName()); //$NON-NLS-1$
 		Arrays.stream(configurable.getClass().getDeclaredFields()).forEach(field -> this.applyObject(configurable, field));
 		Arrays.stream(configurable.getClass().getDeclaredMethods()).forEach(method -> this.afterObject(configurable, method));
 	}
@@ -161,10 +161,10 @@ public abstract class Setter {
 	 */
 	public final synchronized void setAttributes(Class<? extends Configurable> configurable) {
 		if (!this.createSource(configurable)) {
-			Setter.LOGGER.info("Cannot create source for " + configurable);
+			Setter.LOGGER.info(Messages.getString("Setter.2") + configurable); //$NON-NLS-1$
 			return;
 		}
-		Setter.LOGGER.info("Setting attributes in class " + configurable.getSimpleName());
+		Setter.LOGGER.info(Messages.getString("Setter.3") + configurable.getSimpleName()); //$NON-NLS-1$
 		Arrays.stream(configurable.getDeclaredFields()).forEach(this::applyStatic);
 		Arrays.stream(configurable.getDeclaredMethods()).forEach(this::afterStatic);
 	}
@@ -194,7 +194,7 @@ public abstract class Setter {
 			return this.parsers.get(field.getType());
 		}
 		// If none found use MultiLevelParser.
-		Setter.LOGGER.info("Using MultiLevelParser for " + field.getName());
+		Setter.LOGGER.info(Messages.getString("Setter.4") + field.getName()); //$NON-NLS-1$
 		return this.parsers.get(null);
 	}
 
@@ -212,7 +212,7 @@ public abstract class Setter {
 			m.setAccessible(true);
 			m.invoke(null);
 		} catch (Exception e) {
-			Setter.LOGGER.error("Cannot invoke method: " + m.getName() + " because " + e.getMessage());
+			Setter.LOGGER.error(Messages.getString("Setter.5") + m.getName() + Messages.getString("Setter.6") + e.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 
 	}
@@ -233,7 +233,7 @@ public abstract class Setter {
 			m.setAccessible(true);
 			m.invoke(configurable);
 		} catch (Exception e) {
-			Setter.LOGGER.error("Cannot invoke method: " + m.getName() + " because " + e.getMessage());
+			Setter.LOGGER.error(Messages.getString("Setter.7") + m.getName() + Messages.getString("Setter.8") + e.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 
 	}
@@ -250,7 +250,7 @@ public abstract class Setter {
 		}
 		int mod = field.getModifiers();
 		if (!Modifier.isStatic(mod) || Modifier.isFinal(mod)) {
-			Setter.LOGGER.info("Field " + field.getName() + " is non-static or is final");
+			Setter.LOGGER.info(Messages.getString("Setter.9") + field.getName() + Messages.getString("Setter.10")); //$NON-NLS-1$ //$NON-NLS-2$
 			return;
 		}
 		this.applyToField(null, field, this.getValue(field.getName()));
@@ -271,7 +271,7 @@ public abstract class Setter {
 		}
 		int mod = field.getModifiers();
 		if (Modifier.isStatic(mod) || Modifier.isFinal(mod)) {
-			Setter.LOGGER.info("Field " + field.getName() + " is static or is final");
+			Setter.LOGGER.info(Messages.getString("Setter.11") + field.getName() + Messages.getString("Setter.12")); //$NON-NLS-1$ //$NON-NLS-2$
 			return;
 		}
 		this.applyToField(configurable, field, this.getValue(field.getName()));
@@ -294,10 +294,10 @@ public abstract class Setter {
 			field.setAccessible(true);
 			Parser parser = this.getParser(field);
 			if (!parser.parse(configurable, field, val, this.getPath()) && val != null) {
-				Setter.LOGGER.warn("Syntax-Error: Parser rejected content for " + field.getName() + " where content was " + val);
+				Setter.LOGGER.warn(Messages.getString("Setter.13") + field.getName() + Messages.getString("Setter.14") + val); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		} catch (Exception e) {
-			Setter.LOGGER.error("Cannot apply to field: " + field.getName() + " because " + e.getMessage());
+			Setter.LOGGER.error(Messages.getString("Setter.15") + field.getName() + Messages.getString("Setter.16") + e.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 
 	}
@@ -331,7 +331,7 @@ public abstract class Setter {
 	 */
 	private Setter getParent(int depth) {
 		if (depth > Setter.MAX_DEPTH) {
-			throw new Error("MAX_DEPTH has been reached. Abort");
+			throw new Error(Messages.getString("Setter.17")); //$NON-NLS-1$
 		}
 		if (this.parent == null || this.parent == this) {
 			return this;
