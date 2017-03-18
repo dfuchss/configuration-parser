@@ -3,7 +3,7 @@
 [![](https://jitpack.io/v/fuchss-dominik/configuration-parser.svg)](https://jitpack.io/#fuchss-dominik/configuration-parser)
 [![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/configuration-parser/badge.svg?branch=master)](https://coveralls.io/github/fuchss-dominik/configuration-parser?branch=master)
 [![GitHub issues](https://img.shields.io/github/issues/fuchss-dominik/configuration-parser.svg?style=square)](https://github.com/fuchss-dominik/configuration-parser/issues)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=square)](https://github.com/fuchss-dominik/configuration-parser/blob/master/LICENSE.md)
+[![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg?style=square)](https://github.com/fuchss-dominik/configuration-parser/blob/master/LICENSE.md)
 
 This repo contains a small project to set attributes of classes and objects.
 
