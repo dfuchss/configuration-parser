@@ -65,14 +65,10 @@ public class ClassWithParser implements Configurable {
 ```java
   public class MyParser implements Parser {
     @Override
-    public boolean parse(Configurable obj, Field field, String definition, String[] path) throws Exception {
-        if (!Parser.super.parse(obj, field, definition, path)) {
-          return false;
-        }
+    public Object parseIt(String definition, String[] path) throws Exception {
         ClassWithParser c = new ClassWithParser();
         c.attribute = Integer.parseInt(definition);
-        field.set(obj, c);
-        return true;
+        return c;
       }
     }
 ```
