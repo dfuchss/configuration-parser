@@ -71,8 +71,9 @@ public final class MultiLevelParser {
 		newPath[path.length] = field.getName();
 		Setter v = new RecursiveSetter(newPath, this.parent.getParent());
 		v.setAttributes((Configurable) instance);
-		field.set(obj, instance);
-
-		return true;
+		if (instance != null) {
+			field.set(obj, instance);
+		}
+		return instance != null;
 	}
 }
