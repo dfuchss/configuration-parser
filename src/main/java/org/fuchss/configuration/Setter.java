@@ -245,7 +245,9 @@ public abstract class Setter {
 				Setter.LOGGER.warn(Messages.getString("Setter.13") + field.getName() + Messages.getString("Setter.14") + val); //$NON-NLS-1$ //$NON-NLS-2$
 				return;
 			}
-			field.set(configurable, parsed);
+			if (parsed != null) {
+				field.set(configurable, parsed);
+			}
 		} catch (Exception e) {
 			Setter.LOGGER.error(Messages.getString("Setter.15") + field.getName() + Messages.getString("Setter.16") + e.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
 		}
