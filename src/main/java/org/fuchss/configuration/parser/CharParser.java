@@ -1,8 +1,5 @@
 package org.fuchss.configuration.parser;
 
-import java.lang.reflect.Field;
-
-import org.fuchss.configuration.Configurable;
 import org.fuchss.configuration.Messages;
 
 /**
@@ -13,15 +10,11 @@ import org.fuchss.configuration.Messages;
  */
 public final class CharParser implements Parser {
 	@Override
-	public boolean parse(Configurable obj, Field field, String definition, String[] path) throws Exception {
-		if (!Parser.super.parse(obj, field, definition, path)) {
-			return false;
-		}
+	public Object parseIt(String definition, String[] path) throws Exception {
 		if (definition.length() != 1) {
 			Parser.LOGGER.error(Messages.getString("CharParser.0")); //$NON-NLS-1$
-			return false;
+			return null;
 		}
-		field.set(obj, definition.charAt(0));
-		return true;
+		return definition.charAt(0);
 	}
 }

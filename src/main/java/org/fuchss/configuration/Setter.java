@@ -15,16 +15,10 @@ import org.fuchss.configuration.annotations.ClassParser;
 import org.fuchss.configuration.annotations.NoSet;
 import org.fuchss.configuration.annotations.SetParser;
 import org.fuchss.configuration.annotations.SetterInfo;
-import org.fuchss.configuration.parser.BoolParser;
-import org.fuchss.configuration.parser.ByteParser;
+import org.fuchss.configuration.parser.ArrayParser;
 import org.fuchss.configuration.parser.CharParser;
-import org.fuchss.configuration.parser.DoubleParser;
-import org.fuchss.configuration.parser.FloatParser;
-import org.fuchss.configuration.parser.IntParser;
-import org.fuchss.configuration.parser.LongParser;
 import org.fuchss.configuration.parser.MultiLevelParser;
 import org.fuchss.configuration.parser.Parser;
-import org.fuchss.configuration.parser.StringParser;
 import org.fuchss.configuration.setters.ResourceBundleSetter;
 
 /**
@@ -79,15 +73,14 @@ public abstract class Setter {
 		 */
 		private static final long serialVersionUID = -1233333524870450644L;
 		{
-			this.putMore(new BoolParser(), Boolean.class, Boolean.TYPE);
-			this.putMore(new ByteParser(), Byte.class, Byte.TYPE);
+			this.putMore((in, path) -> Boolean.parseBoolean(in), Boolean.class, Boolean.TYPE);
+			this.putMore((in, path) -> Byte.parseByte(in), Byte.class, Byte.TYPE);
 			this.putMore(new CharParser(), Character.class, Character.TYPE);
-			this.putMore(new DoubleParser(), Double.class, Double.TYPE);
-			this.putMore(new FloatParser(), Float.class, Float.TYPE);
-			this.putMore(new IntParser(), Integer.class, Integer.TYPE);
-			this.putMore(new LongParser(), Long.class, Long.TYPE);
-			this.putMore(new StringParser(), String.class);
-			this.put(null, new MultiLevelParser(Setter.this));
+			this.putMore((in, path) -> Double.parseDouble(in), Double.class, Double.TYPE);
+			this.putMore((in, path) -> Float.parseFloat(in), Float.class, Float.TYPE);
+			this.putMore((in, path) -> Integer.parseInt(in), Integer.class, Integer.TYPE);
+			this.putMore((in, path) -> Long.parseLong(in), Long.class, Long.TYPE);
+			this.putMore((in, path) -> in, String.class);
 		}
 
 		/**
@@ -173,7 +166,7 @@ public abstract class Setter {
 	 *
 	 * @param field
 	 *            the field
-	 * @return the parser or {@link MultiLevelParser} if none suitable found
+	 * @return the parser or {@code null} if none suitable found
 	 * @throws Exception
 	 *             reflect stuff
 	 */
@@ -194,7 +187,7 @@ public abstract class Setter {
 		}
 		// If none found use MultiLevelParser.
 		Setter.LOGGER.info(Messages.getString("Setter.4") + field.getName()); //$NON-NLS-1$
-		return this.parsers.get(null);
+		return null;
 	}
 
 	/**
@@ -292,12 +285,46 @@ public abstract class Setter {
 		try {
 			field.setAccessible(true);
 			Parser parser = this.getParser(field);
-			if (!parser.parse(configurable, field, val, this.getPath()) && val != null) {
-				Setter.LOGGER.warn(Messages.getString("Setter.13") + field.getName() + Messages.getString("Setter.14") + val); //$NON-NLS-1$ //$NON-NLS-2$
+
+			Object parsed = null;
+			if (parser != null) {
+				parsed = parser.parse(val, this.getPath());
+			} else {
+				this.parseField(configurable, field, val);
+				return;
 			}
+			if (parsed == null && val != null) {
+				Setter.LOGGER.warn(Messages.getString("Setter.13") + field.getName() + Messages.getString("Setter.14") + val); //$NON-NLS-1$ //$NON-NLS-2$
+				return;
+			}
+			field.set(configurable, parsed);
 		} catch (Exception e) {
 			Setter.LOGGER.error(Messages.getString("Setter.15") + field.getName() + Messages.getString("Setter.16") + e.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
 		}
+
+	}
+
+	private void parseField(Configurable configurable, Field field, String val) throws Exception {
+		if (field.getType().isArray()) {
+			this.parseArray(configurable, field, val);
+		} else {
+			this.parseMultiLevel(configurable, field, val);
+		}
+	}
+
+	private void parseMultiLevel(Configurable configurable, Field field, String val) throws Exception {
+		MultiLevelParser parser = new MultiLevelParser(this);
+		parser.parse(configurable, field, val, this.getPath());
+	}
+
+	private void parseArray(Configurable configurable, Field field, String val) throws Exception {
+		ArrayParser parser = new ArrayParser();
+		Parser contentParser = this.parsers.get(field.getType().getComponentType());
+		if (contentParser == null) {
+			Setter.LOGGER.error("No parser defined for " + field.getType().getEnclosingClass());
+			return;
+		}
+		parser.parse(configurable, field, val, this.getPath(), contentParser);
 
 	}
 

@@ -15,7 +15,7 @@ import org.fuchss.configuration.setters.RecursiveSetter;
  * @author Dominik Fuchss
  * @see RecursiveSetter
  */
-public final class MultiLevelParser implements Parser {
+public final class MultiLevelParser {
 	/**
 	 * The parsers parent setter.
 	 */
@@ -31,13 +31,34 @@ public final class MultiLevelParser implements Parser {
 		this.parent = parent;
 	}
 
-	@Override
+	/**
+	 * Parse the definition to the specific class.
+	 *
+	 * @param obj
+	 *            the configurable Object or {@code null} if static setting
+	 *            (class attributes)
+	 * @param field
+	 *            the current field
+	 * @param definition
+	 *            the String definition
+	 * @param path
+	 *            the recursive path to this element (field). For TopLevel: Use
+	 *            {@code new String[0]}
+	 * @return {@code true} if successful, {@code false} otherwise
+	 * @throws Exception
+	 *             will thrown by any error while parsing if no {@code false}
+	 *             can be returned
+	 *
+	 */
 	public final boolean parse(Configurable obj, Field field, String definition, String[] path) throws Exception {
 		// No definition needed here, as we will parse recursive.
-		if (!Parser.super.parse(obj, field, definition == null ? "" : definition, path)) {
+		if (field == null || path == null) {
 			return false;
 		}
-
+		if (path.length > Parser.MAX_DEPTH) {
+			Parser.LOGGER.error(Messages.getString("Parser.1")); //$NON-NLS-1$
+			return false;
+		}
 		Object instance = field.getType().getDeclaredConstructor().newInstance();
 		if (!(instance instanceof Configurable)) {
 			Parser.LOGGER.error(Messages.getString("MultiLevelParser.1") // //$NON-NLS-1$

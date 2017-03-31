@@ -1,11 +1,7 @@
 package org.fuchss.configuration.parser;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.fuchss.configuration.Configurable;
 import org.fuchss.configuration.Messages;
 import org.fuchss.configuration.Setter;
 import org.fuchss.configuration.annotations.SetterInfo;
@@ -45,35 +41,46 @@ public interface Parser {
 	}
 
 	/**
-	 * Parse the definition to the specific class.
+	 * Parse the definition.
 	 *
-	 * @param obj
-	 *            the configurable Object or {@code null} if static setting
-	 *            (class attributes)
-	 * @param field
-	 *            the current field
 	 * @param definition
 	 *            the String definition
 	 * @param path
 	 *            the recursive path to this element (field). For TopLevel: Use
 	 *            {@code new String[0]}
-	 * @return {@code true} if successful, {@code false} otherwise
+	 * @return {@code Object} if successful, {@code null} otherwise
 	 * @throws Exception
-	 *             will thrown by any error while parsing if no {@code false}
-	 *             can be returned
+	 *             will thrown by any error while parsing if no {@code null} can
+	 *             be returned
 	 *
 	 */
-	default boolean parse(Configurable obj, Field field, String definition, String[] path) throws Exception {
-		if (field == null || definition == null || path == null) {
-			Parser.LOGGER.warn(Messages.getString("Parser.0") + field + Messages.getString("Parser.1") + definition + Messages.getString("Parser.2") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					+ Arrays.toString(path) + Messages.getString("Parser.3")); //$NON-NLS-1$
-			return false;
+	default Object parse(String definition, String[] path) throws Exception {
+		if (definition == null || path == null) {
+			return null;
 		}
 		if (path.length > Parser.MAX_DEPTH) {
-			Parser.LOGGER.error(Messages.getString("Parser.4")); //$NON-NLS-1$
-			return false;
+			Parser.LOGGER.error(Messages.getString("Parser.1")); //$NON-NLS-1$
+			return null;
 		}
-		return true;
+		return this.parseIt(definition, path);
 	}
+
+	/**
+	 * Internal implementation of the parser. Will be invoked by
+	 * {@link #parse(String, String[])}.
+	 *
+	 * @param definition
+	 *            the String definition
+	 * @param path
+	 *            the recursive path to this element (field). For TopLevel: Use
+	 *            {@code new String[0]}
+	 * @return {@code Object} if successful, {@code null} otherwise
+	 * @throws Exception
+	 *             will thrown by any error while parsing if no {@code null} can
+	 *             be returned
+	 *
+	 */
+
+	Object parseIt(String definition, String[] path) throws Exception;
 
 }

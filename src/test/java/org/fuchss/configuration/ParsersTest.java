@@ -6,18 +6,9 @@ import java.util.Stack;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
-import org.fuchss.configuration.Configurable;
-import org.fuchss.configuration.Setter;
-import org.fuchss.configuration.parser.BoolParser;
-import org.fuchss.configuration.parser.ByteParser;
 import org.fuchss.configuration.parser.CharParser;
-import org.fuchss.configuration.parser.DoubleParser;
-import org.fuchss.configuration.parser.FloatParser;
-import org.fuchss.configuration.parser.IntParser;
-import org.fuchss.configuration.parser.LongParser;
 import org.fuchss.configuration.parser.MultiLevelParser;
 import org.fuchss.configuration.parser.Parser;
-import org.fuchss.configuration.parser.StringParser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -80,24 +71,6 @@ public class ParsersTest {
 	}
 
 	/**
-	 * Test handling of null values.
-	 *
-	 * @throws Exception
-	 *             parser stuff
-	 *
-	 */
-	@Test
-	public void checkNullError() throws Exception {
-		Parser[] parsers = { //
-				new BoolParser(), new ByteParser(), new CharParser(), new DoubleParser(), new FloatParser(), new IntParser(), new LongParser(),
-				new StringParser(), new MultiLevelParser(null) };
-		for (Parser parser : parsers) {
-			Assert.assertFalse(parser.parse(null, null, "NotTrueOrBool", new String[0]));
-			this.expectLevel(Level.WARN);
-		}
-	}
-
-	/**
 	 * The {@link Field} for {@link #checkCharParser()}.
 	 */
 	public static char charField;
@@ -112,8 +85,7 @@ public class ParsersTest {
 	@Test
 	public void checkCharParser() throws Exception {
 		CharParser parser = new CharParser();
-		Field field = this.getField("charField");
-		Assert.assertFalse(parser.parse(null, field, "TooLong", new String[0]));
+		Assert.assertNull(parser.parse("TooLong", new String[0]));
 		this.expectLevel(Level.ERROR);
 
 	}
