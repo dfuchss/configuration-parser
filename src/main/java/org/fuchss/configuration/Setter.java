@@ -185,8 +185,6 @@ public abstract class Setter {
 		if (this.parsers.containsKey(field.getType())) {
 			return this.parsers.get(field.getType());
 		}
-		// If none found use MultiLevelParser.
-		Setter.LOGGER.info(Messages.getString("Setter.4") + field.getName()); //$NON-NLS-1$
 		return null;
 	}
 
