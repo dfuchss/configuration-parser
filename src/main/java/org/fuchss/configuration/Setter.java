@@ -161,15 +161,6 @@ public abstract class Setter {
 		Arrays.stream(configurable.getDeclaredMethods()).forEach(this::afterStatic);
 	}
 
-	/**
-	 * Get the specified parser for a field.
-	 *
-	 * @param field
-	 *            the field
-	 * @return the parser or {@code null} if none suitable found
-	 * @throws Exception
-	 *             reflect stuff
-	 */
 	private Parser getParser(Field field) throws Exception {
 		// First the field specific.
 		SetParser manual = field.getDeclaredAnnotation(SetParser.class);
@@ -188,12 +179,6 @@ public abstract class Setter {
 		return null;
 	}
 
-	/**
-	 * Invoke method of a configurable (only static).
-	 *
-	 * @param m
-	 *            the method
-	 */
 	private void afterStatic(Method m) {
 		try {
 			if (!Modifier.isStatic(m.getModifiers()) || m.getAnnotation(AfterSetting.class) == null) {
@@ -207,14 +192,6 @@ public abstract class Setter {
 
 	}
 
-	/**
-	 * Invoke method of a configurable (only non-static).
-	 *
-	 * @param configurable
-	 *            the configurable
-	 * @param m
-	 *            the method
-	 */
 	private void afterObject(Configurable configurable, Method m) {
 		try {
 			if (Modifier.isStatic(m.getModifiers()) || m.getDeclaredAnnotation(AfterSetting.class) == null) {
@@ -228,12 +205,6 @@ public abstract class Setter {
 
 	}
 
-	/**
-	 * Apply a value to a field (only static).
-	 *
-	 * @param field
-	 *            the field
-	 */
 	private void applyStatic(Field field) {
 		if (field.getAnnotation(NoSet.class) != null) {
 			return;
@@ -246,15 +217,6 @@ public abstract class Setter {
 		this.applyToField(null, field, this.getValue(field.getName()));
 	}
 
-	/**
-	 * Apply a value to a field (only non-static).
-	 *
-	 * @param configurable
-	 *            the configurable
-	 * @param field
-	 *            the field
-	 *
-	 */
 	private void applyObject(Configurable configurable, Field field) {
 		if (field.getAnnotation(NoSet.class) != null) {
 			return;
@@ -267,18 +229,6 @@ public abstract class Setter {
 		this.applyToField(configurable, field, this.getValue(field.getName()));
 	}
 
-	/**
-	 * Apply a value to a field.
-	 *
-	 * @param configurable
-	 *            the configurable object or {@code null} to set attributes of
-	 *            classes
-	 * @param field
-	 *            the field
-	 * @param val
-	 *            the value to be set / parsed to the field
-	 *
-	 */
 	private void applyToField(Configurable configurable, Field field, String val) {
 		try {
 			field.setAccessible(true);

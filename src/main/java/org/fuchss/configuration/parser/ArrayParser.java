@@ -6,6 +6,13 @@ import java.lang.reflect.Field;
 import org.fuchss.configuration.Configurable;
 import org.fuchss.configuration.Messages;
 
+/**
+ * This class realizes a Parser which can parse any type of Array (if the array
+ * elements have a {@link Parser}).
+ *
+ * @author Dominik Fuchss
+ *
+ */
 public final class ArrayParser {
 	/**
 	 * Parse the definition to the specific class.
@@ -20,6 +27,8 @@ public final class ArrayParser {
 	 * @param path
 	 *            the recursive path to this element (field). For TopLevel: Use
 	 *            {@code new String[0]}
+	 * @param contentParser
+	 *            the parser of the elements of the array
 	 * @return {@code true} if successful, {@code false} otherwise
 	 * @throws Exception
 	 *             will thrown by any error while parsing if no {@code false}
