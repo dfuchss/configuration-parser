@@ -271,7 +271,7 @@ public abstract class Setter {
 		ArrayParser parser = new ArrayParser();
 		Parser contentParser = this.parsers.get(field.getType().getComponentType());
 		if (contentParser == null) {
-			Setter.LOGGER.error("No parser defined for " + field.getType().getEnclosingClass());
+			Setter.LOGGER.error("No parser defined for " + field.getType().getComponentType());
 			return;
 		}
 		parser.parse(configurable, field, val, this.getPath(), contentParser);
