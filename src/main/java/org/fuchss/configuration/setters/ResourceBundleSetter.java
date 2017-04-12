@@ -1,5 +1,6 @@
 package org.fuchss.configuration.setters;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.fuchss.configuration.Configurable;
@@ -16,10 +17,26 @@ import org.fuchss.configuration.annotations.SetterInfo;
  */
 public final class ResourceBundleSetter extends Setter {
 	/**
+	 * The class loader for the resource bundle.
+	 */
+	private final ClassLoader cl;
+
+	/**
 	 * Create a new Setter.
 	 */
 	public ResourceBundleSetter() {
+		this(null);
+	}
+
+	/**
+	 * Create a new Setter.
+	 * 
+	 * @param cl
+	 *            the class loader for the {@link ResourceBundle}.
+	 */
+	public ResourceBundleSetter(ClassLoader cl) {
 		super(null);
+		this.cl = cl;
 	}
 
 	/**
@@ -39,7 +56,11 @@ public final class ResourceBundleSetter extends Setter {
 			Setter.LOGGER.info(Messages.getString("ResourceBundleSetter.0") + v.getSimpleName()); //$NON-NLS-1$
 			return false;
 		}
-		this.bundle = ResourceBundle.getBundle(info.res());
+		if (this.cl == null) {
+			this.bundle = ResourceBundle.getBundle(info.res());
+		} else {
+			this.bundle = ResourceBundle.getBundle(info.res(), Locale.getDefault(), this.cl);
+		}
 		return true;
 	}
 
