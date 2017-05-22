@@ -1,6 +1,5 @@
 # configuration-parser
 [![Build Status](https://travis-ci.org/fuchss-dominik/configuration-parser.svg?branch=master)](https://travis-ci.org/fuchss-dominik/configuration-parser)
-[![](https://jitpack.io/v/fuchss-dominik/configuration-parser.svg)](https://jitpack.io/#fuchss-dominik/configuration-parser)
 [![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/configuration-parser/badge.svg?branch=master)](https://coveralls.io/github/fuchss-dominik/configuration-parser?branch=master)
 [![GitHub issues](https://img.shields.io/github/issues/fuchss-dominik/configuration-parser.svg?style=square)](https://github.com/fuchss-dominik/configuration-parser/issues)
 [![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg?style=square)](https://github.com/fuchss-dominik/configuration-parser/blob/master/LICENSE.md)
@@ -28,7 +27,22 @@ If you want to set attributes of a class / Object which contains fields of types
 * If the class (-> type of the attribute) only contains basic attributes (int, float, ...) you can also use the MultiLevelParser (Also this parser will be used if no other parser can be found).
 
 # Maven & Co.
-If you want to use maven or some similar tool, I would recommend to use something like https://jitpack.io/ to get the code.
+If you want to use maven or some similar tool add the following code to your pom:
+```xml
+<repositories>
+	<repository>
+		<id>maven-fuchss</id>
+		<url>https://raw.githubusercontent.com/fuchss-dominik/maven/master</url>
+	</repository>
+</repositories>
+<dependencies>
+  <dependency>
+    <groupId>org.fuchss</groupId>
+	<artifactId>configuration-parser</artifactId>
+    <version>1.0</version>
+  </dependency>
+</dependencies>
+```
 
 # Examples
 ## Example 1: Simple Configurable Class
