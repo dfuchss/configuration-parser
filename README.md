@@ -1,8 +1,8 @@
 # configuration-parser
-[![Build Status](https://travis-ci.org/fuchss-dominik/configuration-parser.svg?branch=master)](https://travis-ci.org/fuchss-dominik/configuration-parser)
-[![Coverage Status](https://coveralls.io/repos/github/fuchss-dominik/configuration-parser/badge.svg?branch=master)](https://coveralls.io/github/fuchss-dominik/configuration-parser?branch=master)
-[![GitHub issues](https://img.shields.io/github/issues/fuchss-dominik/configuration-parser.svg?style=square)](https://github.com/fuchss-dominik/configuration-parser/issues)
-[![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg?style=square)](https://github.com/fuchss-dominik/configuration-parser/blob/master/LICENSE.md)
+[![Build Status](https://travis-ci.org/dfuchss/configuration-parser.svg?branch=master)](https://travis-ci.org/dfuchss/configuration-parser)
+[![Coverage Status](https://coveralls.io/repos/github/dfuchss/configuration-parser/badge.svg?branch=master)](https://coveralls.io/github/dfuchss/configuration-parser?branch=master)
+[![GitHub issues](https://img.shields.io/github/issues/dfuchss/configuration-parser.svg?style=square)](https://github.com/dfuchss/configuration-parser/issues)
+[![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg?style=square)](https://github.com/dfuchss/configuration-parser/blob/master/LICENSE.md)
 
 This repo contains a small project to set attributes of classes and objects.
 
@@ -32,13 +32,13 @@ If you want to use maven or some similar tool add the following code to your pom
 <repositories>
 	<repository>
 		<id>maven-fuchss</id>
-		<url>https://raw.githubusercontent.com/fuchss-dominik/maven/master</url>
+		<url>https://raw.githubusercontent.com/dfuchss/maven/releases</url>
 	</repository>
 </repositories>
 <dependencies>
   <dependency>
     <groupId>org.fuchss</groupId>
-	<artifactId>configuration-parser</artifactId>
+    <artifactId>configuration-parser</artifactId>
     <version>1.0</version>
   </dependency>
 </dependencies>
