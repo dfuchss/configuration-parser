@@ -39,7 +39,7 @@ If you want to use maven or some similar tool add the following code to your pom
   <dependency>
     <groupId>org.fuchss</groupId>
     <artifactId>configuration-parser</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
   </dependency>
 </dependencies>
 ```
