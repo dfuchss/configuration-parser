@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 
 import org.fuchss.configuration.Configurable;
-import org.fuchss.configuration.Messages;
 import org.fuchss.configuration.Setter;
 import org.fuchss.configuration.setters.RecursiveSetter;
 
@@ -56,15 +55,14 @@ public final class MultiLevelParser {
 			return false;
 		}
 		if (path.length > Parser.MAX_DEPTH) {
-			Parser.LOGGER.error(Messages.getString("Parser.1")); //$NON-NLS-1$
+			Parser.LOGGER.error("MAX_DEPTH reached. Parsing aborted.");
 			return false;
 		}
 		Object instance = field.getType().getDeclaredConstructor().newInstance();
 		if (!(instance instanceof Configurable)) {
-			Parser.LOGGER.error(Messages.getString("MultiLevelParser.1") // //$NON-NLS-1$
-					+ Messages.getString("MultiLevelParser.2") + field.getName() + Messages.getString("MultiLevelParser.3") // //$NON-NLS-1$ //$NON-NLS-2$
-					+ (obj == null ? Messages.getString("MultiLevelParser.4") : obj.getClass().getSimpleName()) // //$NON-NLS-1$
-					+ Messages.getString("MultiLevelParser.5")); //$NON-NLS-1$
+			Parser.LOGGER.error("MultiLevelParser: Cannot parse " //
+					+ field.getName() + " in " + (obj == null ? "unknown class" : obj.getClass().getSimpleName())
+					+ " The field could not be instantiated as Configurable.");
 			return false;
 		}
 		String[] newPath = Arrays.copyOf(path, path.length + 1);

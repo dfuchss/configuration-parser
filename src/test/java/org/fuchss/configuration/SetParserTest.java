@@ -1,12 +1,9 @@
 package org.fuchss.configuration;
 
-import org.apache.log4j.Level;
-import org.fuchss.configuration.Setter;
 import org.fuchss.configuration.annotations.SetParser;
 import org.fuchss.configuration.dummy.DummyForSetParser;
 import org.fuchss.configuration.setters.ResourceBundleSetter;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -20,14 +17,6 @@ public class SetParserTest {
 	 * An instance of {@link ResourceBundleSetter}.
 	 */
 	private static final Setter RESOURCE_BUNDLE_SETTER = new ResourceBundleSetter();
-
-	/**
-	 * Activate the logger of {@link Setter}.
-	 */
-	@BeforeClass
-	public static void activateLogger() {
-		Setter.LOGGER.setLevel(Level.ALL);
-	}
 
 	/**
 	 * Test for class.

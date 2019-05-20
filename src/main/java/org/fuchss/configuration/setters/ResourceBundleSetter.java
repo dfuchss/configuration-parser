@@ -4,7 +4,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.fuchss.configuration.Configurable;
-import org.fuchss.configuration.Messages;
 import org.fuchss.configuration.Setter;
 import org.fuchss.configuration.annotations.SetterInfo;
 
@@ -30,7 +29,7 @@ public final class ResourceBundleSetter extends Setter {
 
 	/**
 	 * Create a new Setter.
-	 * 
+	 *
 	 * @param cl
 	 *            the class loader for the {@link ResourceBundle}.
 	 */
@@ -53,7 +52,7 @@ public final class ResourceBundleSetter extends Setter {
 	protected boolean createSource(Class<? extends Configurable> v) {
 		SetterInfo info = v.getAnnotation(SetterInfo.class);
 		if (info == null || !info.set()) {
-			Setter.LOGGER.info(Messages.getString("ResourceBundleSetter.0") + v.getSimpleName()); //$NON-NLS-1$
+			Setter.LOGGER.info("No info defined or disabled for class " + v.getSimpleName());
 			return false;
 		}
 		if (this.cl == null) {

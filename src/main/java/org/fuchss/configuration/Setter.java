@@ -7,9 +7,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.fuchss.configuration.annotations.AfterSetting;
 import org.fuchss.configuration.annotations.ClassParser;
 import org.fuchss.configuration.annotations.NoSet;
@@ -35,12 +34,7 @@ public abstract class Setter {
 	/**
 	 * The logger of the this class.
 	 */
-	public static final Logger LOGGER = Logger.getLogger(Setter.class);
-
-	static {
-		Setter.LOGGER.setLevel(Level.ERROR);
-		BasicConfigurator.configure();
-	}
+	public static final Logger LOGGER = LogManager.getLogger(Setter.class);
 
 	/**
 	 * Maximum recursion-depth of {@link #getParent()}.
@@ -67,7 +61,7 @@ public abstract class Setter {
 	/**
 	 * A map of parsers for the setter.
 	 */
-	private final Map<Class<?>, Parser> parsers = new HashMap<Class<?>, Parser>() {
+	private final Map<Class<?>, Parser> parsers = new HashMap<>() {
 		/**
 		 * SUID
 		 */
@@ -137,10 +131,10 @@ public abstract class Setter {
 	 */
 	public final synchronized void setAttributes(Configurable configurable) {
 		if (!this.createSource(configurable)) {
-			Setter.LOGGER.info(Messages.getString("Setter.0") + configurable.getClass()); //$NON-NLS-1$
+			Setter.LOGGER.info("Cannot create source for " + configurable.getClass());
 			return;
 		}
-		Setter.LOGGER.info(Messages.getString("Setter.1") + configurable.getClass().getSimpleName()); //$NON-NLS-1$
+		Setter.LOGGER.info("Setting attributes in object of class " + configurable.getClass().getSimpleName());
 		Arrays.stream(configurable.getClass().getDeclaredFields()).forEach(field -> this.applyObject(configurable, field));
 		Arrays.stream(configurable.getClass().getDeclaredMethods()).forEach(method -> this.afterObject(configurable, method));
 	}
@@ -153,10 +147,10 @@ public abstract class Setter {
 	 */
 	public final synchronized void setAttributes(Class<? extends Configurable> configurable) {
 		if (!this.createSource(configurable)) {
-			Setter.LOGGER.info(Messages.getString("Setter.2") + configurable); //$NON-NLS-1$
+			Setter.LOGGER.info("Cannot create source for " + configurable); //$NON-NLS-1$
 			return;
 		}
-		Setter.LOGGER.info(Messages.getString("Setter.3") + configurable.getSimpleName()); //$NON-NLS-1$
+		Setter.LOGGER.info("Setting attributes in class" + configurable.getSimpleName()); //$NON-NLS-1$
 		Arrays.stream(configurable.getDeclaredFields()).forEach(this::applyStatic);
 		Arrays.stream(configurable.getDeclaredMethods()).forEach(this::afterStatic);
 	}
@@ -187,7 +181,7 @@ public abstract class Setter {
 			m.setAccessible(true);
 			m.invoke(null);
 		} catch (Exception e) {
-			Setter.LOGGER.error(Messages.getString("Setter.5") + m.getName() + Messages.getString("Setter.6") + e.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
+			Setter.LOGGER.error("Cannot invoke method: " + m.getName() + " because " + e.getMessage());
 		}
 
 	}
@@ -200,7 +194,7 @@ public abstract class Setter {
 			m.setAccessible(true);
 			m.invoke(configurable);
 		} catch (Exception e) {
-			Setter.LOGGER.error(Messages.getString("Setter.7") + m.getName() + Messages.getString("Setter.8") + e.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
+			Setter.LOGGER.error("Cannot invoke method: " + m.getName() + " because " + e.getMessage());
 		}
 
 	}
@@ -211,7 +205,7 @@ public abstract class Setter {
 		}
 		int mod = field.getModifiers();
 		if (!Modifier.isStatic(mod) || Modifier.isFinal(mod)) {
-			Setter.LOGGER.info(Messages.getString("Setter.9") + field.getName() + Messages.getString("Setter.10")); //$NON-NLS-1$ //$NON-NLS-2$
+			Setter.LOGGER.info("Field " + field.getName() + " is non-static or is final");
 			return;
 		}
 		this.applyToField(null, field, this.getValue(field.getName()));
@@ -223,7 +217,7 @@ public abstract class Setter {
 		}
 		int mod = field.getModifiers();
 		if (Modifier.isStatic(mod) || Modifier.isFinal(mod)) {
-			Setter.LOGGER.info(Messages.getString("Setter.11") + field.getName() + Messages.getString("Setter.12")); //$NON-NLS-1$ //$NON-NLS-2$
+			Setter.LOGGER.info("Field " + field.getName() + " is static or is final");
 			return;
 		}
 		this.applyToField(configurable, field, this.getValue(field.getName()));
@@ -242,14 +236,14 @@ public abstract class Setter {
 				return;
 			}
 			if (parsed == null && val != null) {
-				Setter.LOGGER.warn(Messages.getString("Setter.13") + field.getName() + Messages.getString("Setter.14") + val); //$NON-NLS-1$ //$NON-NLS-2$
+				Setter.LOGGER.warn("Syntax-Error: Parser rejected content for " + field.getName() + " where content was " + val);
 				return;
 			}
 			if (parsed != null) {
 				field.set(configurable, parsed);
 			}
 		} catch (Exception e) {
-			Setter.LOGGER.error(Messages.getString("Setter.15") + field.getName() + Messages.getString("Setter.16") + e.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
+			Setter.LOGGER.error("Cannot apply to field: " + field.getName() + " because " + e.getMessage());
 		}
 
 	}
@@ -307,7 +301,7 @@ public abstract class Setter {
 	 */
 	private Setter getParent(int depth) {
 		if (depth > Setter.MAX_DEPTH) {
-			throw new Error(Messages.getString("Setter.17")); //$NON-NLS-1$
+			throw new Error("MAX_DEPTH reached. Abort");
 		}
 		if (this.parent == null || this.parent == this) {
 			return this;

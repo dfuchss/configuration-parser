@@ -4,7 +4,6 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 
 import org.fuchss.configuration.Configurable;
-import org.fuchss.configuration.Messages;
 
 /**
  * This class realizes a Parser which can parse any type of Array (if the array
@@ -40,7 +39,7 @@ public final class ArrayParser {
 			return false;
 		}
 		if (path.length > Parser.MAX_DEPTH) {
-			Parser.LOGGER.error(Messages.getString("Parser.1")); //$NON-NLS-1$
+			Parser.LOGGER.error("MAX_DEPTH reached. Parsing aborted.");
 			return false;
 		}
 		if (!field.getType().isArray()) {

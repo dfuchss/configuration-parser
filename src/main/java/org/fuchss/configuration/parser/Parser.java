@@ -1,8 +1,7 @@
 package org.fuchss.configuration.parser;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.fuchss.configuration.Messages;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.fuchss.configuration.Setter;
 import org.fuchss.configuration.annotations.SetterInfo;
 
@@ -19,26 +18,12 @@ public interface Parser {
 	/**
 	 * The logger of the Parser class.
 	 */
-	final Logger LOGGER = Parser.getLogger();
+	final Logger LOGGER = LogManager.getLogger(Parser.class);
 
 	/**
 	 * The maximum recursion depth.
 	 */
 	final int MAX_DEPTH = 5;
-
-	/**
-	 * Do not invoke. Will be used to set {@link #LOGGER}
-	 *
-	 * @return the logger instance
-	 */
-	static Logger getLogger() {
-		Logger logger = Logger.getLogger(Parser.class);
-		logger.setLevel(Level.ERROR);
-		// Will set via Setter-Logger
-		// BasicConfigurator.configure();
-		return logger;
-
-	}
 
 	/**
 	 * Parse the definition.
@@ -59,7 +44,7 @@ public interface Parser {
 			return null;
 		}
 		if (path.length > Parser.MAX_DEPTH) {
-			Parser.LOGGER.error(Messages.getString("Parser.1")); //$NON-NLS-1$
+			Parser.LOGGER.error("MAX_DEPTH reached. Parsing aborted.");
 			return null;
 		}
 		return this.parseIt(definition, path);

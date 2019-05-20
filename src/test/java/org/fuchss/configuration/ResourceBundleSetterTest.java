@@ -1,7 +1,5 @@
 package org.fuchss.configuration;
 
-import org.apache.log4j.Level;
-import org.fuchss.configuration.Setter;
 import org.fuchss.configuration.annotations.NoSet;
 import org.fuchss.configuration.dummy.DummyForResourceBundle;
 import org.fuchss.configuration.setters.ResourceBundleSetter;
@@ -20,14 +18,6 @@ public class ResourceBundleSetterTest {
 	 * An instance of {@link ResourceBundleSetter}.
 	 */
 	private static final Setter RESOURCE_BUNDLE_SETTER = new ResourceBundleSetter();
-
-	/**
-	 * Activate the logger of {@link Setter}.
-	 */
-	@BeforeClass
-	public static void activateLogger() {
-		Setter.LOGGER.setLevel(Level.ALL);
-	}
 
 	/**
 	 * Visit the {@link DummyForResourceBundle}.

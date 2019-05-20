@@ -1,7 +1,6 @@
 package org.fuchss.configuration.setters;
 
 import org.fuchss.configuration.Configurable;
-import org.fuchss.configuration.Messages;
 import org.fuchss.configuration.Setter;
 import org.fuchss.configuration.parser.MultiLevelParser;
 
@@ -34,7 +33,7 @@ public final class RecursiveSetter extends Setter {
 	public RecursiveSetter(String[] path, Setter parent) {
 		super(parent);
 		if (parent == null) {
-			throw new IllegalArgumentException(Messages.getString("RecursiveSetter.0")); //$NON-NLS-1$
+			throw new IllegalArgumentException("A parent setter is needed by RecursiveSetter"); //$NON-NLS-1$
 		}
 		this.path = path;
 
