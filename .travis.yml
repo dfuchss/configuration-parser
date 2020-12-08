@@ -1,7 +1,0 @@
-language: java
-jdk:
-  - oraclejdk14
-
-after_success:
-  - mvn clean test jacoco:report coveralls:report
-  - bash <(curl -s https://raw.githubusercontent.com/dfuchss/maven/releases/travis/decrypt.sh) && cd $TRAVIS_BUILD_DIR && mvn deploy
