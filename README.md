@@ -1,4 +1,5 @@
 # configuration-parser
+![Maven Deploy (Dev)](https://github.com/dfuchss/configuration-parser/workflows/Maven%20Deploy%20(Dev)/badge.svg)
 [![GitHub issues](https://img.shields.io/github/issues/dfuchss/configuration-parser.svg?style=square)](https://github.com/dfuchss/configuration-parser/issues)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=square)](https://github.com/dfuchss/configuration-parser/blob/master/LICENSE.md)
 
