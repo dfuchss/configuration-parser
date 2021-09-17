@@ -21,7 +21,10 @@ jobs:
         
       - name: Verify with Maven
         run: mvn -B verify
-      
+
+      - name: Configure GIT
+        run: git config --global user.email "ci@fuchss.org" &&  git config --global user.name "CI"
+        
       - name: Publish Package
         run: mvn -B deploy
         env:
