@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.fuchss</groupId>
 	<artifactId>configuration-parser</artifactId>
-	<version>develop-SNAPSHOT</version>
+	<version>1.5</version>
 	<description>This small project realizes a tool to set the attributes of classes and objects.</description>
 	<prerequisites>
 		<maven>3.3.9</maven>
