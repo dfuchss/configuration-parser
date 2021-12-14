@@ -16,6 +16,7 @@
 		<sonar.projectKey>dfuchss_configuration-parser</sonar.projectKey>
 		<sonar.organization>dfuchss</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<log4j.version>2.16.0</log4j.version>
 	</properties>
 	<distributionManagement>
 		<repository>
@@ -93,12 +94,12 @@
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
-			<version>2.14.1</version>
+			<version>${log4j.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
-			<version>2.14.1</version>
+			<version>${log4j.version}</version>
 		</dependency>
 	</dependencies>
 </project>
