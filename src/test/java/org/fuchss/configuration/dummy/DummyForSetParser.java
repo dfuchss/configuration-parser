@@ -10,7 +10,6 @@ import org.fuchss.configuration.setters.ResourceBundleSetter;
  * {@link ResourceBundleSetter} and {@link SetParser}.
  *
  * @author Dominik Fuchss
- *
  */
 @SetterInfo(res = "conf/dummyForResourceBundle", set = true)
 public class DummyForSetParser implements Configurable {

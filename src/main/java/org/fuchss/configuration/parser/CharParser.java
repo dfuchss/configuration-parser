@@ -4,7 +4,6 @@ package org.fuchss.configuration.parser;
  * This {@link Parser} is used for parsing {@link Character Characters}.
  *
  * @author Dominik Fuchss
- *
  */
 public final class CharParser implements Parser {
 	@Override

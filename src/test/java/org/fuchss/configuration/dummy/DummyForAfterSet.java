@@ -9,7 +9,6 @@ import org.fuchss.configuration.annotations.SetterInfo;
  * This class will be used to test {@link AfterSetting}.
  *
  * @author Dominik Fuchss
- *
  */
 @SetterInfo(res = "conf/dummyForResourceBundle", set = true)
 public class DummyForAfterSet implements Configurable {

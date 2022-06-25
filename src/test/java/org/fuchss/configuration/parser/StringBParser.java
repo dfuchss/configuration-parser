@@ -6,7 +6,6 @@ import org.fuchss.configuration.toParse.StringB;
  * An internal StringB parser.
  *
  * @author Dominik Fuchss
- *
  */
 public class StringBParser implements Parser {
 	@Override

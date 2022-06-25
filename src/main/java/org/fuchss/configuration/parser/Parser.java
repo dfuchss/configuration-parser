@@ -1,9 +1,9 @@
 package org.fuchss.configuration.parser;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.fuchss.configuration.Setter;
 import org.fuchss.configuration.annotations.SetterInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This interface defines a parser which will be used for parsing a String to a
@@ -12,32 +12,27 @@ import org.fuchss.configuration.annotations.SetterInfo;
  *
  * @author Dominik Fuchss
  * @see SetterInfo
- *
  */
 public interface Parser {
 	/**
 	 * The logger of the Parser class.
 	 */
-	final Logger LOGGER = LogManager.getLogger(Parser.class);
+	Logger LOGGER = LoggerFactory.getLogger(Parser.class);
 
 	/**
 	 * The maximum recursion depth.
 	 */
-	final int MAX_DEPTH = 5;
+	int MAX_DEPTH = 5;
 
 	/**
 	 * Parse the definition.
 	 *
-	 * @param definition
-	 *            the String definition
-	 * @param path
-	 *            the recursive path to this element (field). For TopLevel: Use
-	 *            {@code new String[0]}
+	 * @param definition the String definition
+	 * @param path       the recursive path to this element (field). For TopLevel: Use
+	 *                   {@code new String[0]}
 	 * @return {@code Object} if successful, {@code null} otherwise
-	 * @throws Exception
-	 *             will thrown by any error while parsing if no {@code null} can
-	 *             be returned
-	 *
+	 * @throws Exception will thrown by any error while parsing if no {@code null} can
+	 *                   be returned
 	 */
 	default Object parse(String definition, String[] path) throws Exception {
 		if (definition == null || path == null) {
@@ -54,18 +49,13 @@ public interface Parser {
 	 * Internal implementation of the parser. Will be invoked by
 	 * {@link #parse(String, String[])}.
 	 *
-	 * @param definition
-	 *            the String definition
-	 * @param path
-	 *            the recursive path to this element (field). For TopLevel: Use
-	 *            {@code new String[0]}
+	 * @param definition the String definition
+	 * @param path       the recursive path to this element (field). For TopLevel: Use
+	 *                   {@code new String[0]}
 	 * @return {@code Object} if successful, {@code null} otherwise
-	 * @throws Exception
-	 *             will thrown by any error while parsing if no {@code null} can
-	 *             be returned
-	 *
+	 * @throws Exception will thrown by any error while parsing if no {@code null} can
+	 *                   be returned
 	 */
-
 	Object parseIt(String definition, String[] path) throws Exception;
 
 }

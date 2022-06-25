@@ -8,7 +8,6 @@ import org.fuchss.configuration.parser.MultiLevelParser;
  * {@link MultiLevelParser}.
  *
  * @author Dominik Fuchss
- *
  */
 public final class Tuple implements Configurable {
 	/**

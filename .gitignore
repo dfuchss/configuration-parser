@@ -2,3 +2,5 @@
 .classpath
 .settings/
 .project
+.flattened-pom.xml
+.idea

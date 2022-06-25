@@ -1,24 +1,20 @@
 package org.fuchss.configuration;
 
+import org.fuchss.configuration.annotations.*;
+import org.fuchss.configuration.parser.ArrayParser;
+import org.fuchss.configuration.parser.CharParser;
+import org.fuchss.configuration.parser.MultiLevelParser;
+import org.fuchss.configuration.parser.Parser;
+import org.fuchss.configuration.setters.ResourceBundleSetter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.fuchss.configuration.annotations.AfterSetting;
-import org.fuchss.configuration.annotations.ClassParser;
-import org.fuchss.configuration.annotations.NoSet;
-import org.fuchss.configuration.annotations.SetParser;
-import org.fuchss.configuration.annotations.SetterInfo;
-import org.fuchss.configuration.parser.ArrayParser;
-import org.fuchss.configuration.parser.CharParser;
-import org.fuchss.configuration.parser.MultiLevelParser;
-import org.fuchss.configuration.parser.Parser;
-import org.fuchss.configuration.setters.ResourceBundleSetter;
 
 /**
  * This class supports the setting of Values and/or Attributes to classes and
@@ -28,13 +24,12 @@ import org.fuchss.configuration.setters.ResourceBundleSetter;
  * @see SetterInfo
  * @see AfterSetting
  * @see ResourceBundleSetter
- *
  */
 public abstract class Setter {
 	/**
 	 * The logger of the this class.
 	 */
-	public static final Logger LOGGER = LogManager.getLogger(Setter.class);
+	public static final Logger LOGGER = LoggerFactory.getLogger(Setter.class);
 
 	/**
 	 * Maximum recursion-depth of {@link #getParent()}.
@@ -51,8 +46,7 @@ public abstract class Setter {
 	/**
 	 * Set necessary fields.
 	 *
-	 * @param parent
-	 *            the parent setter
+	 * @param parent the parent setter
 	 */
 	protected Setter(Setter parent) {
 		this.parent = parent;
@@ -66,6 +60,7 @@ public abstract class Setter {
 		 * SUID
 		 */
 		private static final long serialVersionUID = -1233333524870450644L;
+
 		{
 			this.putMore((in, path) -> Boolean.parseBoolean(in), Boolean.class, Boolean.TYPE);
 			this.putMore((in, path) -> Byte.parseByte(in), Byte.class, Byte.TYPE);
@@ -96,10 +91,9 @@ public abstract class Setter {
 	 * This method will be invoked before setting attributes by
 	 * {@link #setAttributes(Configurable)}.
 	 *
-	 * @param configurable
-	 *            the configurable
+	 * @param configurable the configurable
 	 * @return {@code true} if the source for KV-Mapping established,
-	 *         {@code false} if failed
+	 * {@code false} if failed
 	 */
 	protected abstract boolean createSource(Configurable configurable);
 
@@ -107,18 +101,16 @@ public abstract class Setter {
 	 * This method will be invoked before setting attributes by
 	 * {@link #setAttributes(Class)}.
 	 *
-	 * @param configurable
-	 *            the configurable
+	 * @param configurable the configurable
 	 * @return {@code true} if the source for KV-Mapping established,
-	 *         {@code false} if failed
+	 * {@code false} if failed
 	 */
 	protected abstract boolean createSource(Class<? extends Configurable> configurable);
 
 	/**
 	 * Get value by key.
 	 *
-	 * @param key
-	 *            the key ({@link Field#getName()})
+	 * @param key the key ({@link Field#getName()})
 	 * @return {@code null} if no value found, the value otherwise
 	 */
 	public abstract String getValue(String key);
@@ -126,8 +118,7 @@ public abstract class Setter {
 	/**
 	 * Set attributes of a configurable (only non-static).
 	 *
-	 * @param configurable
-	 *            the configurable
+	 * @param configurable the configurable
 	 */
 	public final synchronized void setAttributes(Configurable configurable) {
 		if (!this.createSource(configurable)) {
@@ -142,8 +133,7 @@ public abstract class Setter {
 	/**
 	 * Set attributes of a configurable (only static).
 	 *
-	 * @param configurable
-	 *            the configurable
+	 * @param configurable the configurable
 	 */
 	public final synchronized void setAttributes(Class<? extends Configurable> configurable) {
 		if (!this.createSource(configurable)) {
@@ -293,11 +283,9 @@ public abstract class Setter {
 	/**
 	 * Same as {@link #getParent()}.
 	 *
-	 * @param depth
-	 *            the recursion depth
+	 * @param depth the recursion depth
 	 * @return the most parent setter.
-	 * @throws Error
-	 *             if {@link #MAX_DEPTH} has been reached
+	 * @throws Error if {@link #MAX_DEPTH} has been reached
 	 */
 	private Setter getParent(int depth) {
 		if (depth > Setter.MAX_DEPTH) {

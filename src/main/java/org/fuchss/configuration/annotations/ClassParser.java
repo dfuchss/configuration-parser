@@ -1,11 +1,11 @@
 package org.fuchss.configuration.annotations;
 
+import org.fuchss.configuration.Configurable;
+import org.fuchss.configuration.parser.Parser;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
-import org.fuchss.configuration.Configurable;
-import org.fuchss.configuration.parser.Parser;
 
 /**
  * This annotation has to be applied to a {@link Configurable} which shall be
@@ -13,7 +13,6 @@ import org.fuchss.configuration.parser.Parser;
  * parser.
  *
  * @author Dominik Fuchss
- *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

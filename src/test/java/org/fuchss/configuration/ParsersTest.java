@@ -1,21 +1,20 @@
 package org.fuchss.configuration;
 
-import java.lang.reflect.Field;
-
 import org.fuchss.configuration.parser.CharParser;
 import org.fuchss.configuration.parser.MultiLevelParser;
 import org.fuchss.configuration.parser.Parser;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Field;
 
 /**
  * This class shall test functionality (remaining tests) of the {@link Parser
  * Parsers}.
  *
  * @author Dominik Fuchss
- *
  */
-public class ParsersTest {
+class ParsersTest {
 	/**
 	 * The {@link Field} for {@link #checkCharParser()}.
 	 */
@@ -24,15 +23,12 @@ public class ParsersTest {
 	/**
 	 * Test {@link CharParser} basic error handling functionality.
 	 *
-	 * @throws Exception
-	 *             parser stuff
-	 *
+	 * @throws Exception parser stuff
 	 */
 	@Test
-	public void checkCharParser() throws Exception {
+	void checkCharParser() throws Exception {
 		CharParser parser = new CharParser();
-		Assert.assertNull(parser.parse("TooLong", new String[0]));
-
+		Assertions.assertNull(parser.parse("TooLong", new String[0]));
 	}
 
 	/**
@@ -43,12 +39,10 @@ public class ParsersTest {
 	/**
 	 * Test {@link MultiLevelParser} basic error handling functionality.
 	 *
-	 * @throws Exception
-	 *             parser stuff
-	 *
+	 * @throws Exception parser stuff
 	 */
 	@Test
-	public void checkMultiLevelParser() throws Exception {
+	void checkMultiLevelParser() throws Exception {
 		MultiLevelParser parser = new MultiLevelParser(new Setter(null) {
 
 			@Override
@@ -67,9 +61,9 @@ public class ParsersTest {
 			}
 		});
 		Field field = this.getField("mlpField");
-		Assert.assertFalse(parser.parse(null, field, "TooLong", new String[0]));
+		Assertions.assertFalse(parser.parse(null, field, "TooLong", new String[0]));
 
-		Assert.assertFalse(parser.parse(new Configurable() {
+		Assertions.assertFalse(parser.parse(new Configurable() {
 		}, field, "TooLong", new String[0]));
 
 	}
@@ -78,7 +72,6 @@ public class ParsersTest {
 	 * A class for {@link ParsersTest#checkMultiLevelParser()}.
 	 *
 	 * @author Dominik Fuchss
-	 *
 	 */
 	public static class MultiLevelParserTestClass {
 		/**
@@ -90,16 +83,14 @@ public class ParsersTest {
 	/**
 	 * Get field by name.
 	 *
-	 * @param name
-	 *            the name
+	 * @param name the name
 	 * @return the field
-	 *
 	 */
 	private Field getField(String name) {
 		try {
 			return this.getClass().getDeclaredField(name);
 		} catch (NoSuchFieldException | SecurityException e) {
-			Assert.fail();
+			Assertions.fail();
 			return null;
 		}
 	}

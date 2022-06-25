@@ -3,16 +3,15 @@ package org.fuchss.configuration;
 import org.fuchss.configuration.annotations.SetParser;
 import org.fuchss.configuration.dummy.DummyForClassParser;
 import org.fuchss.configuration.setters.ResourceBundleSetter;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * This class tests {@link SetParser} functionality.
  *
  * @author Dominik Fuchss
- *
  */
-public class ClassParserTest {
+class ClassParserTest {
 	/**
 	 * An instance of {@link ResourceBundleSetter}.
 	 */
@@ -22,21 +21,21 @@ public class ClassParserTest {
 	 * Test for class.
 	 */
 	@Test
-	public void testStatic() {
-		Assert.assertNull(DummyForClassParser.classStringB);
+	void testStatic() {
+		Assertions.assertNull(DummyForClassParser.classStringB);
 		ClassParserTest.RESOURCE_BUNDLE_SETTER.setAttributes(DummyForClassParser.class);
-		Assert.assertEquals("Earth", DummyForClassParser.classStringB.string);
+		Assertions.assertEquals("Earth", DummyForClassParser.classStringB.string);
 	}
 
 	/**
 	 * Test for object.
 	 */
 	@Test
-	public void testObject() {
+	void testObject() {
 		DummyForClassParser v = new DummyForClassParser();
-		Assert.assertNull(v.objStringB);
+		Assertions.assertNull(v.objStringB);
 		ClassParserTest.RESOURCE_BUNDLE_SETTER.setAttributes(v);
-		Assert.assertEquals("Hello", v.objStringB.string);
+		Assertions.assertEquals("Hello", v.objStringB.string);
 	}
 
 }

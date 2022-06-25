@@ -14,7 +14,6 @@ import org.fuchss.configuration.setters.ResourceBundleSetter;
  * @see AfterSetting
  * @see NoSet
  * @see ResourceBundleSetter
- *
  */
 public interface Configurable {
 }

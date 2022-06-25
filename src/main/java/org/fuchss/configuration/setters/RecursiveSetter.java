@@ -10,13 +10,12 @@ import org.fuchss.configuration.parser.MultiLevelParser;
  *
  * @author Dominik Fuchss
  * @see MultiLevelParser
- *
  */
 public final class RecursiveSetter extends Setter {
 	/**
 	 * The actual path so far.
 	 */
-	private String[] path;
+	private final String[] path;
 	/**
 	 * The id before the real key: e.g. "field1.subfield2."
 	 */
@@ -25,10 +24,8 @@ public final class RecursiveSetter extends Setter {
 	/**
 	 * Create a new RecursiveSetter.
 	 *
-	 * @param path
-	 *            the recursive path so far.
-	 * @param parent
-	 *            the parent setter where all info will received from.
+	 * @param path   the recursive path so far.
+	 * @param parent the parent setter where all info will received from.
 	 */
 	public RecursiveSetter(String[] path, Setter parent) {
 		super(parent);

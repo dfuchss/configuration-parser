@@ -3,15 +3,14 @@ package org.fuchss.configuration;
 import org.fuchss.configuration.annotations.NoSet;
 import org.fuchss.configuration.dummy.DummyForResourceBundle;
 import org.fuchss.configuration.setters.ResourceBundleSetter;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * This class shall test functionality of the {@link ResourceBundleSetter}.
  *
  * @author Dominik Fuchss
- *
  */
 public class ResourceBundleSetterTest {
 	/**
@@ -22,7 +21,7 @@ public class ResourceBundleSetterTest {
 	/**
 	 * Visit the {@link DummyForResourceBundle}.
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void setUp() {
 		ResourceBundleSetterTest.RESOURCE_BUNDLE_SETTER.setAttributes(DummyForResourceBundle.class);
 	}
@@ -32,8 +31,8 @@ public class ResourceBundleSetterTest {
 	 * set.
 	 */
 	@Test
-	public void testLongOneValue() {
-		Assert.assertEquals(1, DummyForResourceBundle.LongValueOne);
+	void testLongOneValue() {
+		Assertions.assertEquals(1, DummyForResourceBundle.LongValueOne);
 	}
 
 	/**
@@ -41,16 +40,16 @@ public class ResourceBundleSetterTest {
 	 * set.
 	 */
 	@Test
-	public void testFloatHalfValue() {
-		Assert.assertEquals(0.5F, DummyForResourceBundle.FloatValueHalf, 1E-8);
+	void testFloatHalfValue() {
+		Assertions.assertEquals(0.5F, DummyForResourceBundle.FloatValueHalf, 1E-8);
 	}
 
 	/**
 	 * Test whether {@link DummyForResourceBundle#HelloWorld} is correctly set.
 	 */
 	@Test
-	public void testHelloWorldValue() {
-		Assert.assertEquals("HelloWorld", DummyForResourceBundle.HelloWorld);
+	void testHelloWorldValue() {
+		Assertions.assertEquals("HelloWorld", DummyForResourceBundle.HelloWorld);
 	}
 
 	/**
@@ -58,55 +57,54 @@ public class ResourceBundleSetterTest {
 	 * set.
 	 */
 	@Test
-	public void testIntZeroValue() {
-		Assert.assertEquals(0, DummyForResourceBundle.IntValueZero);
+	void testIntZeroValue() {
+		Assertions.assertEquals(0, DummyForResourceBundle.IntValueZero);
 	}
 
 	/**
 	 * Test whether {@link DummyForResourceBundle#CharD} is correctly set.
 	 */
 	@Test
-	public void testCharDValue() {
-		Assert.assertEquals('D', DummyForResourceBundle.CharD);
+	void testCharDValue() {
+		Assertions.assertEquals('D', DummyForResourceBundle.CharD);
 	}
 
 	/**
 	 * Test whether {@link DummyForResourceBundle#BoolTrue} is correctly set.
 	 */
 	@Test
-	public void testBoolTrueValue() {
-		Assert.assertEquals(true, DummyForResourceBundle.BoolTrue);
+	void testBoolTrueValue() {
+		Assertions.assertTrue(DummyForResourceBundle.BoolTrue);
 	}
 
 	/**
 	 * Test whether {@link DummyForResourceBundle#Byte127} is correctly set.
 	 */
 	@Test
-	public void testByte127Value() {
-		Assert.assertEquals((byte) 127, DummyForResourceBundle.Byte127);
+	void testByte127Value() {
+		Assertions.assertEquals((byte) 127, DummyForResourceBundle.Byte127);
 	}
 
 	/**
 	 * Test whether {@link DummyForResourceBundle#DoublePi} is correctly set.
 	 */
 	@Test
-	public void testDoublePiValue() {
-		Assert.assertEquals(3.141593, DummyForResourceBundle.DoublePi, 1E-8);
+	void testDoublePiValue() {
+		Assertions.assertEquals(3.141593, DummyForResourceBundle.DoublePi, 1E-8);
 	}
 
 	/**
 	 * Test whether {@link DummyForResourceBundle#Tuple} is correctly set.
 	 */
 	@Test
-	public void testTuple() {
-		Assert.assertNotNull(DummyForResourceBundle.Tuple);
-		Assert.assertEquals("Hello", DummyForResourceBundle.Tuple.stringA);
-		Assert.assertEquals("World", DummyForResourceBundle.Tuple.stringB);
+	void testTuple() {
+		Assertions.assertNotNull(DummyForResourceBundle.Tuple);
+		Assertions.assertEquals("Hello", DummyForResourceBundle.Tuple.stringA);
+		Assertions.assertEquals("World", DummyForResourceBundle.Tuple.stringB);
 		// Inner tuple.
-		Assert.assertNotNull(DummyForResourceBundle.Tuple.innerTuple);
-		Assert.assertEquals("one", DummyForResourceBundle.Tuple.innerTuple.stringA);
-		Assert.assertNull(DummyForResourceBundle.Tuple.innerTuple.stringB);
-
+		Assertions.assertNotNull(DummyForResourceBundle.Tuple.innerTuple);
+		Assertions.assertEquals("one", DummyForResourceBundle.Tuple.innerTuple.stringA);
+		Assertions.assertNull(DummyForResourceBundle.Tuple.innerTuple.stringB);
 	}
 
 	/**
@@ -114,8 +112,8 @@ public class ResourceBundleSetterTest {
 	 * (-> null) -> {@link NoSet}.
 	 */
 	@Test
-	public void testHelloWorld2() {
-		Assert.assertNull(DummyForResourceBundle.HelloWorld2);
+	void testHelloWorld2() {
+		Assertions.assertNull(DummyForResourceBundle.HelloWorld2);
 	}
 
 }

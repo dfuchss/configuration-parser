@@ -1,18 +1,17 @@
 package org.fuchss.configuration.setters;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
-
 import org.fuchss.configuration.Configurable;
 import org.fuchss.configuration.Setter;
 import org.fuchss.configuration.annotations.SetterInfo;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * This class realizes the default {@link Setter} which will use a
  * {@link ResourceBundle} as configured by {@link SetterInfo}.
  *
  * @author Dominik Fuchss
- *
  */
 public final class ResourceBundleSetter extends Setter {
 	/**
@@ -30,8 +29,7 @@ public final class ResourceBundleSetter extends Setter {
 	/**
 	 * Create a new Setter.
 	 *
-	 * @param cl
-	 *            the class loader for the {@link ResourceBundle}.
+	 * @param cl the class loader for the {@link ResourceBundle}.
 	 */
 	public ResourceBundleSetter(ClassLoader cl) {
 		super(null);

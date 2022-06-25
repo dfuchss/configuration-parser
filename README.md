@@ -30,20 +30,18 @@ If you want to set attributes of a class / Object which contains fields of types
 If you want to use maven or some similar tool add the following code to your pom:
 ```xml
 <repositories>
-	<repository>
-		<id>gh-fuchss</id>
-		<name>GitHub Maven Packages</name>
-		<url>https://packages.fuchss.org/github/releases/raw/branch/releases/</url>
-		OR
-		<url>https://packages.fuchss.org/github/snapshots/raw/branch/snapshots/</url>
-	</repository>
+    <repository>
+        <id>maven-snapshots</id>
+        <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
 </repositories>
+
 <dependencies>
-  <dependency>
+<dependency>
     <groupId>org.fuchss</groupId>
     <artifactId>configuration-parser</artifactId>
     <version>develop-SNAPSHOT</version>
-  </dependency>
+</dependency>
 </dependencies>
 ```
 

@@ -7,7 +7,6 @@ import org.fuchss.configuration.parser.StringBParser;
  * This class contains a String.
  *
  * @author Dominik Fuchss
- *
  */
 @ClassParser(StringBParser.class)
 public class StringB {

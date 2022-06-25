@@ -11,7 +11,6 @@ import org.fuchss.configuration.toParse.Tuple;
  * {@link ResourceBundleSetter} and {@link SetterInfo}.
  *
  * @author Dominik Fuchss
- *
  */
 @SetterInfo(res = "conf/dummyForResourceBundle", set = true)
 public class DummyForResourceBundle implements Configurable {
