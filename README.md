@@ -1,5 +1,5 @@
 # configuration-parser
-![Maven Deploy (Dev)](https://github.com/dfuchss/configuration-parser/workflows/Maven%20Deploy%20(Dev)/badge.svg)
+[![Maven Deploy](https://github.com/dfuchss/configuration-parser/actions/workflows/deploy.yml/badge.svg)](https://github.com/dfuchss/configuration-parser/actions/workflows/deploy.yml)
 [![Latest Release](https://img.shields.io/github/release/dfuchss/configuration-parser.svg)](https://github.com/dfuchss/configuration-parser/releases/latest)
 [![GitHub issues](https://img.shields.io/github/issues/dfuchss/configuration-parser.svg?style=square)](https://github.com/dfuchss/configuration-parser/issues)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=square)](https://github.com/dfuchss/configuration-parser/blob/master/LICENSE.md)
