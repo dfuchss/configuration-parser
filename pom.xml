@@ -35,7 +35,7 @@
 		<sonar.projectKey>dfuchss_configuration-parser</sonar.projectKey>
 		<sonar.organization>dfuchss</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<slf4j.version>2.0.3</slf4j.version>
+		<slf4j.version>2.0.4</slf4j.version>
 	</properties>
 	<distributionManagement>
 		<snapshotRepository>
