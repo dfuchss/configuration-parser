@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.fuchss</groupId>
 	<artifactId>configuration-parser</artifactId>
-	<version>develop-SNAPSHOT</version>
+	<version>1.6.1-SNAPSHOT</version>
 	<name>Configuration Parser</name>
 	<description>This small project realizes a tool to set the attributes of classes and objects.</description>
 	<url>https://github.com/dfuchss/configuration-parser</url>
@@ -27,6 +27,7 @@
 		<connection>scm:git:git://github.com/dfuchss/configuration-parser.git</connection>
 		<developerConnection>scm:git:ssh://github.com:dfuchss/configuration-parser.git</developerConnection>
 		<url>https://github.com/dfuchss/configuration-parser/tree/main</url>
+		<tag>v1.6</tag>
 	</scm>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -111,6 +112,14 @@
 						<phase>clean</phase>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>3.0.0-M7</version>
+				<configuration>
+					<tagNameFormat>v@{project.version}</tagNameFormat>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
