@@ -29,19 +29,12 @@ If you want to set attributes of a class / Object which contains fields of types
 # Maven & Co.
 If you want to use maven or some similar tool add the following code to your pom:
 ```xml
-<repositories>
-    <repository>
-        <id>maven-snapshots</id>
-        <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-    </repository>
-</repositories>
-
 <dependencies>
-<dependency>
-    <groupId>org.fuchss</groupId>
-    <artifactId>configuration-parser</artifactId>
-    <version>develop-SNAPSHOT</version>
-</dependency>
+    <dependency>
+        <groupId>org.fuchss</groupId>
+        <artifactId>configuration-parser</artifactId>
+        <version>X.Y.Z</version>
+    </dependency>
 </dependencies>
 ```
 
