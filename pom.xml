@@ -25,12 +25,12 @@
 		<connection>scm:git:git://github.com/dfuchss/configuration-parser.git</connection>
 		<developerConnection>scm:git:ssh://github.com:dfuchss/configuration-parser.git</developerConnection>
 		<url>https://github.com/dfuchss/configuration-parser/tree/main</url>
-		<tag>v1.6</tag>
+		<tag>HEAD</tag>
 	</scm>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
+		<maven.compiler.source>21</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
 		<sonar.projectKey>dfuchss_configuration-parser</sonar.projectKey>
 		<sonar.organization>dfuchss</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
