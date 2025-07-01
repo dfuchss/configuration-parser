@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.fuchss</groupId>
 	<artifactId>configuration-parser</artifactId>
-	<version>1.12.7</version>
+	<version>1.12.8-SNAPSHOT</version>
 	<name>Configuration Parser</name>
 	<description>This small project realizes a tool to set the attributes of classes and objects.</description>
 	<url>https://github.com/dfuchss/configuration-parser</url>
